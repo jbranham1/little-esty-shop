@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin dashboard page' do
-  before :each do
-    @jen = Merchant.create!(name: "Jen")
-    @jewelry = @jen.items.create!(name: "Jewelry", description: "Shiny", unit_price: 10.50, status: "enabled")
-  end
 
   it "Admin dashboard page contents" do
     visit "/admin"

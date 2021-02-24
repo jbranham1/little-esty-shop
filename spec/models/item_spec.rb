@@ -22,6 +22,8 @@ RSpec.describe Item, type: :model do
             unit_price: 8.99)
 
     expect(red.status).to eq("enabled")
+    expect(red.enabled?).to eq(true)
+    expect(red.disabled?).to eq(false)
   end
 
   it 'can have status disabled' do
@@ -33,6 +35,8 @@ RSpec.describe Item, type: :model do
     red.update!(status: :disabled)
 
     expect(red.status).to eq("disabled")
+    expect(red.enabled?).to eq(false)
+    expect(red.disabled?).to eq(true)
   end
 
   describe 'class methods' do

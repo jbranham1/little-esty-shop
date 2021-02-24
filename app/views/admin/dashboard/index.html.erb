@@ -1,0 +1,21 @@
+<h1> Admin Dashboard </h1>
+
+<%= render "/shared/admin_links" %><br>
+
+<h2> Top 5 Customers with largest number of successful transactions</h2>
+<% @customers.top_5_customers_with_success.each do |cust| %>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name:</th>
+        <th scope="col">Number of Successful Transactions:</th>
+      </tr>
+      <tr>
+        <td scope="row"><%= cust.full_name %></td>
+        <td><%= cust.transaction_count %></td>
+      </tr>
+    </thead>
+  </table>
+<% end %>
+
+<h2> Incomplete Invoices </h2>

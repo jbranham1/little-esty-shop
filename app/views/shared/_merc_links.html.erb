@@ -1,7 +1,8 @@
 <div class="links">
   <ul>
-    <button class="button4"><%= link_to "Dashboard", "/merchants/#{@merchant.id}/dashboard", style: "text-decoration:none" %></button>
-    <button class="button4"><%= link_to "My Items", "/merchants/#{@merchant.id}/items", style: "text-decoration:none" %></button>
-    <button class="button4"><%= link_to "My Invoices", "/merchants/#{@merchant.id}/invoices", style: "text-decoration:none" %></button>
+    <h1><%= merchant.name %></h1>
+    <button class="button4"><%= link_to "Dashboard", "/merchants/#{merchant.id}/dashboard", style: "text-decoration:none" %></button>
+    <%= button_to "My Items", "/merchant/#{merchant.id}/items", method: :get%>
+    <%= button_to "My Invoices", "/merchant/#{merchant.id}/invoices", method: :get%>
   </ul>
 </div>

@@ -12,4 +12,12 @@ RSpec.describe Customer, type: :model do
       end
     end
   end
+  describe 'instance methods' do
+    describe '::full_name' do
+      it "combines first and last name" do
+        customer = create(:customer)
+        expect(customer.full_name).to eq("#{customer.first_name} #{customer.last_name}")
+      end
+    end
+  end
 end

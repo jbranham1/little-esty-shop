@@ -32,14 +32,4 @@ RSpec.describe Invoice, type: :model do
     expect(invoice.completed?).to eq(true)
     expect(invoice.in_progress?).to eq(false)
   end
-
-  describe 'instance methods' do
-    describe '::invoice_date' do
-      it 'formats the invoice date' do
-        invoice = create(:invoice, created_at: Date.new(2021,02,24))
-
-        expect(invoice.invoice_date).to eq("Wednesday, February 24, 2021")
-      end
-    end
-  end
 end

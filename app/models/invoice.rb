@@ -6,7 +6,4 @@ class Invoice < ApplicationRecord
 
   enum status: [:in_progress, :cancelled, :completed]
 
-  def invoice_date
-    created_at.strftime('%A, %B %d, %Y')
-  end
 end

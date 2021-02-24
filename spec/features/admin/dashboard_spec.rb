@@ -10,8 +10,8 @@ RSpec.describe 'Admin dashboard page' do
     visit "/admin"
 
     expect(page).to have_content("Admin Dashboard")
-    expect(page).to have_link("Merchants")
-    expect(page).to have_link("Invoices")
-    expect(page).to have_content("Top 5 Customers with largest number of successful transactions")
+    expect(page).to have_button("Merchants")
+    expect(page).to have_button("Invoices")
+    expect(page).to have_content("Top Customers")
   end
 end

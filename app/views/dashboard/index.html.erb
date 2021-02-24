@@ -1,1 +1,17 @@
 <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
+<h2>Items Ready to Ship</h2>
+  <div>
+    <% if @items_ready_to_ship %>
+      <% @items_ready_to_ship.each do |item| %>
+        <p><%= item.name %> - Invoice <%=item.inv_id %> - <%= item.invoice_date.strftime('%A, %B %d, %Y') %></p>
+      <% end %>
+    <% end %>
+  </div>
+<h2>Favorite Customers</h2>
+  <% if @top_customers_for_merchant %>
+  <ol>
+    <% @top_customers_for_merchant.each do |customer| %>
+      <li><%= customer.full_name %> - <%= customer.transaction_count%> purchases</li>
+    <% end %>
+  </ol>
+  <% end %>

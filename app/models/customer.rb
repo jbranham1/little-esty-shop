@@ -3,7 +3,7 @@ class Customer < ApplicationRecord
   has_many :invoices, dependent: :destroy
 
   def full_name
-     [self.first_name, self.last_name].join(' ')
+     [first_name, last_name].join(' ')
   end
 
   def self.top_5_customers_with_success

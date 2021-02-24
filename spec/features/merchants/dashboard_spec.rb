@@ -8,7 +8,7 @@ RSpec.describe 'Merchant Dashboard' do
     describe "When I visit my merchant dashboard (/merchant/merchant_id/dashboard)" do
       it "Then I see the name of my merchant" do
         visit merchant_dashboard_index_path(@merchant.id)
-        
+
         expect(current_path).to eq("/merchant/#{@merchant.id}/dashboard")
         expect(page).to have_content(@merchant.name)
       end
@@ -33,6 +33,18 @@ RSpec.describe 'Merchant Dashboard' do
       end
       describe "Then I see a section for 'Items Ready to Ship'" do
         it "In that section I see a list of the item names that have been ordered but not shipped" do
+          merchant = create(:merchant)
+          item1 = create(:item, merchant_id: merchant.id)
+          item2 = create(:item, merchant_id: merchant.id)
+          invoice1 = create(:invoice)
+          create(:invoice_item, item_id: item1.id, invoice_id: invoice1.id, status: :pending)
+          create(:invoice_item, item_id: item2.id, invoice_id: invoice1.id, status: :pending)
+
+          visit merchant_dashboard_index_path(merchant.id)
+
+          expect(page).to have_content("Items Ready to Ship")
+          expect(page).to have_content("#{item1.name} - Invoice #{invoice1.id} - #{invoice1.created_at.strftime('%A, %B %d, %Y')}")
+          expect(item1.name).to appear_before(item2.name)
         end
         it "And next to each Item I see the id of the invoice that ordered my item and each invoice id is a link to my merchant's invoice show page" do
         end

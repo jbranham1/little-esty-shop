@@ -44,6 +44,7 @@ RSpec.describe 'Merchant Dashboard' do
 
           expect(page).to have_content("Items Ready to Ship")
           expect(page).to have_content("#{item1.name} - Invoice #{invoice1.id} - #{invoice1.created_at.strftime('%A, %B %d, %Y')}")
+          expect(item1.name).to appear_before(item2.name)
         end
         it "And next to each Item I see the id of the invoice that ordered my item and each invoice id is a link to my merchant's invoice show page" do
         end

@@ -34,4 +34,11 @@ RSpec.describe Item, type: :model do
 
     expect(red.status).to eq("disabled")
   end
+
+  describe 'class methods' do
+    describe '::ready_to_ship_by_merchant' do
+      it "gets items the have a status that isn't shipped for the merchant" do
+      end
+    end
+  end
 end

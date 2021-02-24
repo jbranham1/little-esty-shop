@@ -8,9 +8,7 @@
   </button>
   <div class="dropdown-menu">
     <% @invoices.incomplete_invoices.each do |invoice| %>
-    <a class="dropdown-item" href="/admin/invoices/#{invoice.id}">
-      Invoice#<%= invoice.id %> | <%= invoice.created_at.strftime("%A, %B %d, %Y")%>
-    </a>
+      <%= link_to "Invoice #{invoice.id} | #{invoice.created_at.strftime("%A, %B %d, %Y")}", "/admin/invoices/#{invoice.id}",  class: "dropdown-item" %>
     <% end %>
   </div>
 </div>

@@ -5,11 +5,10 @@ namespace :fixtures do
     desc "Import merchants from csv file to test environment"
 
     task merchants: :environment do
-      ActiveRecord::Base.establish_connection('test')
       Merchant.destroy_all
       ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
 
-      file = "spec/fixtures/merchants_test.csv"
+      file = "spec/fixtures/files/merchants_test.csv"
 
       CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
         Merchant.create!(row.to_hash)
@@ -19,11 +18,10 @@ namespace :fixtures do
     desc "Import invoice items from csv file"
 
     task invoice_items: :environment do
-      ActiveRecord::Base.establish_connection('test')
       InvoiceItem.destroy_all
       ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
 
-      file = "spec/fixtures/invoice_items_test.csv"
+      file = "spec/fixtures/files/invoice_items_test.csv"
 
       CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
         InvoiceItem.create!(row.to_hash)
@@ -33,11 +31,11 @@ namespace :fixtures do
     desc "Import items from csv file"
 
     task items: :environment do
-      ActiveRecord::Base.establish_connection('test')
+      # ActiveRecord::Base.establish_connection('test')
       Item.destroy_all
       ActiveRecord::Base.connection.reset_pk_sequence!('items')
 
-      file = "spec/fixtures/items_test.csv"
+      file = "spec/fixtures/files/items_test.csv"
 
       CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
         Item.create!(row.to_hash)
@@ -47,11 +45,10 @@ namespace :fixtures do
     desc "Import invoices from csv file"
 
     task invoices: :environment do
-      ActiveRecord::Base.establish_connection('test')
       Invoice.destroy_all
       ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
 
-      file = "spec/fixtures/invoices_test.csv"
+      file = "spec/fixtures/files/invoices_test.csv"
 
       CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
         if row[:status] == "in progress"
@@ -65,11 +62,10 @@ namespace :fixtures do
     desc "Import transactions from csv file"
 
     task transactions: :environment do
-      ActiveRecord::Base.establish_connection('test')
       Transaction.destroy_all
       ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
 
-      file = "spec/fixtures/transactions_test.csv"
+      file = "spec/fixtures/files/transactions_test.csv"
 
       CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
         Transaction.create!(row.to_hash)
@@ -79,11 +75,10 @@ namespace :fixtures do
     desc "Import customers from csv file"
 
     task customers: :environment do
-      ActiveRecord::Base.establish_connection('test')
       Customer.destroy_all
       ActiveRecord::Base.connection.reset_pk_sequence!('customers')
 
-      file = "spec/fixtures/customers_test.csv"
+      file = "spec/fixtures/files/customers_test.csv"
 
       CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
         Customer.create!(row.to_hash)
@@ -93,13 +88,12 @@ namespace :fixtures do
     desc "Import all csv files"
 
     task all: :environment do
-      ActiveRecord::Base.establish_connection('test')
-      tasks = [ 'csv_load:merchants',
-                'csv_load:items',
-                'csv_load:customers',
-                'csv_load:invoices',
-                'csv_load:transactions',
-                'csv_load:invoice_items']
+      tasks = [ 'fixtures:csv_load:merchants',
+                'fixtures:csv_load:items',
+                'fixtures:csv_load:customers',
+                'fixtures:csv_load:invoices',
+                'fixtures:csv_load:transactions',
+                'fixtures:csv_load:invoice_items']
 
       tasks.each do |task|
         Rake::Task[task].execute

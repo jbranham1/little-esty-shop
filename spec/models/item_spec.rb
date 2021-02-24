@@ -38,6 +38,14 @@ RSpec.describe Item, type: :model do
   describe 'class methods' do
     describe '::ready_to_ship_by_merchant' do
       it "gets items the have a status that isn't shipped for the merchant" do
+        merchant = create(:merchant)
+        item1 = create(:item, merchant_id: merchant.id)
+        item2 = create(:item, merchant_id: merchant.id)
+        invoice1 = create(:invoice)
+        create(:invoice_item, item_id: item1.id, invoice_id: invoice1.id, status: :pending)
+        create(:invoice_item, item_id: item2.id, invoice_id: invoice1.id, status: :pending)
+
+        expect(Item.ready_to_ship_by_merchant(merchant.id).pluck(:name)).to eq([item1.name, item2.name])
       end
     end
   end

@@ -15,27 +15,27 @@ RSpec.describe InvoiceItem, type: :model do
   end
 
   it 'status can be pending' do
-     invoice_item = create(:invoice_item, status: :pending)
-     expect(invoice_item.status).to eq("pending")
-     expect(invoice_item.pending?).to eq(true)
-     expect(invoice_item.packaged?).to eq(false)
-     expect(invoice_item.shipped?).to eq(false)
+     @invoice_items = InvoiceItem.all
+     expect(@invoice_items.first.status).to eq("pending")
+     expect(@invoice_items.first.pending?).to eq(true)
+     expect(@invoice_items.first.packaged?).to eq(false)
+     expect(@invoice_items.first.shipped?).to eq(false)
    end
 
    it 'status can be packaged' do
-      invoice_item = create(:invoice_item, status: :packaged)
-      expect(invoice_item.status).to eq("packaged")
-      expect(invoice_item.pending?).to eq(false)
-      expect(invoice_item.packaged?).to eq(true)
-      expect(invoice_item.shipped?).to eq(false)
+       @invoice_items = InvoiceItem.all
+      expect(@invoice_items.second.status).to eq("packaged")
+      expect(@invoice_items.second.pending?).to eq(false)
+      expect(@invoice_items.second.packaged?).to eq(true)
+      expect(@invoice_items.second.shipped?).to eq(false)
     end
 
     it 'status can be shipped' do
-       invoice_item = create(:invoice_item, status: :shipped)
-       expect(invoice_item.status).to eq("shipped")
-       expect(invoice_item.pending?).to eq(false)
-       expect(invoice_item.packaged?).to eq(false)
-       expect(invoice_item.shipped?).to eq(true)
+        @invoice_item84 = InvoiceItem.find(84)
+       expect(@invoice_item84.status).to eq("shipped")
+       expect(@invoice_item84.pending?).to eq(false)
+       expect(@invoice_item84.packaged?).to eq(false)
+       expect(@invoice_item84.shipped?).to eq(true)
      end
-     
+
 end

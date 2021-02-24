@@ -6,4 +6,6 @@ class Invoice < ApplicationRecord
 
   enum status: [:in_progress, :cancelled, :completed]
 
+  scope :incomplete_invoices, -> { includes(:invoice_items).where.not(status: 2).distinct.order(:created_at)}
+
 end

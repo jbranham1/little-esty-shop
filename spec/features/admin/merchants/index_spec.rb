@@ -21,4 +21,21 @@ RSpec.describe 'Admin Merchants Index Page' do
       click_button("Enabled #{@merchants.first.id}")
   end
 
+  it "Can Create Merchant" do
+
+    expect(page).to have_button("Create Merchant")
+    click_button("Create Merchant")
+    expect(current_path).to eq("/admin/merchants/new")
+    fill_in :name, with: "Dev Rightorium"
+    click_button("submit")
+    expect(page).to have_content("Dev Rightorium")
+  end
+
+  it "Error not putting information to create " do
+    expect(page).to have_button("Create Merchant")
+    click_button("Create Merchant")
+    expect(current_path).to eq("/admin/merchants/new")
+    click_button("submit")
+  end
+
 end

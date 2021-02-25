@@ -9,10 +9,16 @@ class Merchant < ApplicationRecord
 
   enum status: [:enabled, :disabled]
 
+<<<<<<< HEAD
   after_initialize :default
 
   def default
     self.status == "disabled"
   end
 
+=======
+  def distinct_invoices
+    invoices.distinct
+  end
+>>>>>>> main
 end

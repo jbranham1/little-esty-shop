@@ -12,7 +12,7 @@ class Customer < ApplicationRecord
 
   def self.top_5_customers_with_success
     select('customers.first_name, customers.last_name, count(transactions.id) as transaction_count')
-    .joins(invoices: :transactions)
+    .joins(:transactions)
     .where(transactions: {result: 0})
     .group(:id)
     .order('transaction_count desc')
@@ -20,11 +20,12 @@ class Customer < ApplicationRecord
   end
 
   def self.top_customer_by_merchant(merchant_id)
-    joins(invoices: [:transactions, :items])
+    joins(:transactions)
     .select('customers.*, count(transactions.id) as transaction_count')
-    .where(transactions: {result: 0})
-    .where(items: {merchant_id: merchant_id})
-    .group(:id)
+    .where(transactions: {result: :success})
+    .where("customers.id IN (?)",
+      Customer.joins(:merchants).select(:id).where("merchants.id = #{merchant_id}").distinct)
+    .group("customers.id")
     .order(transaction_count: :desc)
     .limit(5)
   end

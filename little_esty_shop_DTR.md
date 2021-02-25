@@ -33,9 +33,9 @@
 
 ### Team strengths:
   * ALL - Good foundation of knowledge to bring to table
-  * Jenny - debugging guru!
+  * Jenny - SQL genius and debugging guru!
   * Khoa - top notch tenacity and work ethic!
-  * Genevieve - detail oriented, breaking things down and organization
+  * Genevieve - detail oriented and breaking things down
 
 ### How to overcome obstacles:
   * Ask for help - no longer than one Pom, if we are struggling for more than one its a good indicator to reach out for help.
@@ -68,7 +68,6 @@
 ### Workflow Expectations (Git workflow/Tools/Code Review/Reviewing Pull Requests):
 
   * Don't merge your own pull requests, another member from the team should merge.
-  * Tuple for paired programming and calls.
   * Slack for general communication and when a PR has been opened.
 
 ### Expectations for giving and receiving feedback:

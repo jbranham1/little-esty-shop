@@ -1,3 +1,13 @@
-<h1 style="text-align:left"> Admin Merchants </h1>
-
+<h3 class="alert alert-dark" style="width:300px">Admin Dashboard</h3>
 <%= render "/shared/admin_links" %><br>
+<h1 class="alert alert-info"><center>Merchants Dashboard</center> </h1>
+
+
+<table class="table">
+  <tr>
+    <th><%= render partial: "enabled" %></th>
+    <th><%= render partial: "disabled" %></th>
+  </tr>
+</table>
+
+<%= button_to "Create Merchant", "/admin/merchants/new", method: :get, local: true %>

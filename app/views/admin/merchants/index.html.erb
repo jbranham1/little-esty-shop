@@ -1,9 +1,15 @@
-<h1 style="text-align:left"> Admin Merchants </h1>
-
+<h3 class="alert alert-dark" style="width:300px">Admin Dashboard</h3>
 <%= render "/shared/admin_links" %><br>
+<h1 class="alert alert-info"><center>Merchants Dashboard</center> </h1>
 
-<% @merchants.distinct.each do |merchant| %>
-<ul class="list-group w-25 p-3">
-  <li class="list-group-item list-group-item-secondary "><%=link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}"%></li>
-</ul>
-<% end %>
+
+<div class="btn-group, overflow-auto d-flex justify-content-begin">
+  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="sr-only ">Enabled Merchants</span>
+  </button>
+  <div class="dropdown-menu">
+    <% @merchants.distinct.each do |merchant| %>
+    <%=link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}", class: "dropdown-item"%>
+    <% end %>
+  </div>
+</div>

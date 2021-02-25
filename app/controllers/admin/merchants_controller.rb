@@ -8,6 +8,16 @@ class Admin::MerchantsController < ApplicationController
     @merchant = Merchant.find(params[:id])
   end
 
+  def create
+    merchant = Merchant.create(merchants_params)
+    if merchant.save
+      redirect_to "/admin/merchants/#{merchant.id}"
+    else
+      flash[:error] = "Merchant was not saved!"
+      render :new
+    end
+  end
+
   def update
     merchant = Merchant.find(params[:id])
     if params[:status]

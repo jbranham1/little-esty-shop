@@ -9,10 +9,10 @@ RSpec.describe 'Merchant Invoices Show Page' do
     @customer.save
   end
   describe "As a merchant," do
-    describe "When I visit my merchant's invoice show page(/merchants/merchant_id/invoices/invoice_id)" do
+    describe "When I visit my merchant's invoice show page(/merchant/merchant_id/invoices/invoice_id)" do
       it "Then I see the invoice id, status, and created_at date" do
         visit merchant_invoice_path(@merchant.id, @invoice.id)
-        expect(current_path).to eq("/merchants/#{@merchant.id}/invoices/#{@invoice.id}")
+        expect(current_path).to eq("/merchant/#{@merchant.id}/invoices/#{@invoice.id}")
 
         expect(page).to have_content("Invoice ##{@invoice.id}")
         within ".invoice-information" do

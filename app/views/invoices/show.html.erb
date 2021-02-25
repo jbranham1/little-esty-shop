@@ -1,0 +1,6 @@
+<h1>Invoice #<%= @invoice.id %></h1>
+<section class="invoice-information">
+  <p>Status: <%= @invoice.status.titleize %></p>
+  <p>Created on: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
+  <p>Total Revenue:</p>
+</section>

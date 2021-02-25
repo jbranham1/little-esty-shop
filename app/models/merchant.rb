@@ -8,4 +8,8 @@ class Merchant < ApplicationRecord
   validates_presence_of :name
 
   enum status: [:enabled, :disabled]
+
+  def distinct_invoices
+    invoices.distinct
+  end
 end

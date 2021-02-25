@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get '', to: 'dashboard#index', as: '/'
   end
 
-  resources :merchant do
+  resources :merchants do
     resources :invoices, :items
     resources :dashboard, only: [:index]
   end

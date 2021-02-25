@@ -5,26 +5,26 @@ RSpec.describe 'Merchant Dashboard' do
     @merchant = Merchant.first
   end
   describe "As a merchant," do
-    describe "When I visit my merchant dashboard (/merchant/merchant_id/dashboard)" do
+    describe "When I visit my merchant dashboard (/merchants/merchant_id/dashboard)" do
       it "Then I see the name of my merchant" do
         visit merchant_dashboard_index_path(@merchant.id)
 
-        expect(current_path).to eq("/merchant/#{@merchant.id}/dashboard")
+        expect(current_path).to eq("/merchants/#{@merchant.id}/dashboard")
         expect(page).to have_content(@merchant.name)
       end
-      it "Then I see link to my merchant items index (/merchant/merchant_id/items)" do
+      it "Then I see link to my merchant items index (/merchants/merchant_id/items)" do
         visit merchant_dashboard_index_path(@merchant.id)
 
         expect(page).to have_button('My Items')
         click_on ('My Items')
-        expect(current_path).to eq("/merchant/#{@merchant.id}/items")
+        expect(current_path).to eq("/merchants/#{@merchant.id}/items")
       end
-      it "And I see a link to my merchant invoices index (/merchant/merchant_id/invoices)" do
+      it "And I see a link to my merchant invoices index (/merchants/merchant_id/invoices)" do
         visit merchant_dashboard_index_path(@merchant.id)
 
         expect(page).to have_button('My Invoices')
         click_on ('My Invoices')
-        expect(current_path).to eq("/merchant/#{@merchant.id}/invoices")
+        expect(current_path).to eq("/merchants/#{@merchant.id}/invoices")
       end
       it "I see my top 5 customer names with largest number of successful transactions" do
         visit merchant_dashboard_index_path(@merchant.id)
@@ -68,7 +68,7 @@ RSpec.describe 'Merchant Dashboard' do
             expect(page).to have_link("882")
             expect(page).to_not have_link("121")
             click_link "882"
-            expect(current_path).to eq("/merchant/#{@merchant.id}/invoices/882")
+            expect(current_path).to eq("/merchants/#{@merchant.id}/invoices/882")
           end
         end
       end

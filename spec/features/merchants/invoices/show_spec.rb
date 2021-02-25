@@ -4,6 +4,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
   before :each do
     @merchant = Merchant.first
     @invoice = @merchant.invoices.first
+    @invoice_item = @invoice.invoice_items.first
     @customer = @invoice.customer
     @customer.update(address: '123 Main St', city: 'Denver', state: 'CO', zipcode: '80202')
     @customer.save
@@ -28,6 +29,22 @@ RSpec.describe 'Merchant Invoices Show Page' do
           expect(page).to have_content(@customer.full_name)
           expect(page).to have_content(@customer.address)
           expect(page).to have_content("#{@customer.city}, #{@customer.state} #{@customer.zipcode}")
+        end
+      end
+      describe "Then I see all of my items on the invoice including:" do
+        it "Item name, The quantity of the item ordered, The price the Item sold for,The Invoice Item status" do
+
+          visit merchant_invoice_path(@merchant.id, @invoice.id)
+
+          within ".invoice-items" do
+            expect(page).to have_content("Items on this Invoice:")
+
+            within ".invoice-item-#{@invoice_item.id}" do
+              expect(page).to have_content(@invoice_item.item.name)
+              expect(page).to have_content(@invoice_item.quantity)
+              expect(page).to have_content(@invoice_item.unit_price_dollar)
+            end
+          end
         end
       end
     end

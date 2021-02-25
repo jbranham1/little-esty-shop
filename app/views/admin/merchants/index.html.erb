@@ -3,13 +3,9 @@
 <h1 class="alert alert-info"><center>Merchants Dashboard</center> </h1>
 
 
-<div class="btn-group, overflow-auto d-flex justify-content-begin">
-  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span class="sr-only ">Enabled Merchants</span>
-  </button>
-  <div class="dropdown-menu">
-    <% @merchants.distinct.each do |merchant| %>
-    <%=link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}", class: "dropdown-item"%>
-    <% end %>
-  </div>
-</div>
+<table class="table">
+  <tr>
+    <th><%= render partial: "enabled" %></th>
+    <th><%= render partial: "disabled" %></th>
+  </tr>
+</table>

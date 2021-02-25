@@ -4,7 +4,7 @@
   <% if @items_ready_to_ship %>
     <% @items_ready_to_ship.each do |item| %>
       <div class="item-<%= item.inv_item_id %>">
-        <p><%= item.name %> - Invoice <%= link_to item.inv_id, merchant_invoice_path(@merchant, item) %> - <%= item.invoice_date.strftime('%A, %B %d, %Y') %></p>
+        <p><%= item.name %> - Invoice <%= link_to item.inv_id, merchant_invoice_path(@merchant, item.inv_id) %> - <%= item.invoice_date.strftime('%A, %B %d, %Y') %></p>
       </div>
     <% end %>
   <% end %>

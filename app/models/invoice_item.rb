@@ -12,4 +12,8 @@ class InvoiceItem < ApplicationRecord
   def unit_price_dollar
     "$" + sprintf("%.2f", unit_price)
   end
+
+  def revenue
+    unit_price * quantity
+  end
 end

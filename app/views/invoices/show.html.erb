@@ -2,7 +2,7 @@
 <section class="invoice-information">
   <p>Status: <%= @invoice.status.titleize %></p>
   <p>Created on: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
-  <p>Total Revenue:</p>
+  <p>Total Revenue: <%= @invoice.total_revenue %></p>
 </section>
 <section class="invoice-customer">
   <h3>Customer:</h3>
@@ -28,6 +28,7 @@
         <td><%= invoice_item.item.name %></td>
         <td><%= invoice_item.quantity %></td>
         <td><%= invoice_item.unit_price_dollar %></td>
+        <td></td>
       </tr>
     </tbody>
   <% end %>

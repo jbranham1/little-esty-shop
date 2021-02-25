@@ -21,6 +21,13 @@ RSpec.describe 'Merchant Invoices Show Page' do
           expect(page).to have_content("Created on: #{@invoice.created_at.strftime('%A, %B %d, %Y')}")
         end
       end
+      it "And I see the total revenue that will be generated from all of my items on the invoice" do
+        visit merchant_invoice_path(@merchant.id, @invoice.id)
+
+        within ".invoice-information" do
+          expect(page).to have_content("Total Revenue: #{@invoice.total_revenue}")
+        end
+      end
       it "Then I see all of the customer information related to that merchant" do
         visit merchant_invoice_path(@merchant.id, @invoice.id)
 

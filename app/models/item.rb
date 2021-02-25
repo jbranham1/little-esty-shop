@@ -12,7 +12,7 @@ class Item < ApplicationRecord
 
   def self.ready_to_ship_by_merchant(merchant_id)
     joins(invoice_items: :invoice)
-    .select('items.*, invoices.id as inv_id, invoices.created_at as invoice_date')
+    .select('items.*, invoice_items.id as inv_item_id, invoices.id as inv_id, invoices.created_at as invoice_date')
     .where('invoice_items.status <> 2')
     .where(items: {merchant_id: merchant_id})
     .order('invoices.created_at')

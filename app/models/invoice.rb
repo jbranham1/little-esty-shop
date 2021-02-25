@@ -9,5 +9,7 @@ class Invoice < ApplicationRecord
 
   scope :incomplete_invoices, -> { includes(:invoice_items).where.not(status: 2).distinct.order(:created_at)}
   # scope :invoices_with_successful_transactions
-
+  def total_revenue
+    "$" + sprintf("%.2f", invoice_items.sum(&:revenue))
+  end
 end

@@ -11,6 +11,7 @@ namespace :csv_load do
 
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
       Merchant.create!(row.to_hash)
+      ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
     end
   end
 
@@ -24,6 +25,7 @@ namespace :csv_load do
 
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
       InvoiceItem.create!(row.to_hash)
+      ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
     end
   end
 
@@ -37,6 +39,7 @@ namespace :csv_load do
 
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
       Item.create!(row.to_hash)
+      ActiveRecord::Base.connection.reset_pk_sequence!('items')
     end
   end
 
@@ -54,6 +57,7 @@ namespace :csv_load do
       end
 
       Invoice.create!(row.to_hash)
+      ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
     end
   end
 
@@ -67,6 +71,7 @@ namespace :csv_load do
 
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
       Transaction.create!(row.to_hash)
+      ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
     end
   end
 
@@ -80,6 +85,7 @@ namespace :csv_load do
 
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
       Customer.create!(row.to_hash)
+      ActiveRecord::Base.connection.reset_pk_sequence!('customers')
     end
   end
 
@@ -95,6 +101,10 @@ namespace :csv_load do
 
     tasks.each do |task|
       Rake::Task[task].execute
+    end
+
+    ActiveRecord::Base.connection.tables.each do |t|
+      ActiveRecord::Base.connection.reset_pk_sequence!(t)
     end
   end
 end

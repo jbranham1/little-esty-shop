@@ -53,6 +53,32 @@ RSpec.describe 'Merchant Invoices Show Page' do
             end
           end
         end
+        describe "I see that each invoice item status is a select field" do
+          describe "And I see that the invoice item's current status is selected" do
+            describe "When I click this select field, I can select a new Status" do
+              it "And I can click 'Update Item Status' abd see that the item's status is updated" do
+                visit merchant_invoice_path(@merchant.id, @invoice.id)
+
+                within ".invoice-items" do
+                  within ".invoice-item-#{@invoice_item.id}" do
+                    expect(page).to have_content(@invoice_item.status)
+                    expect(page).to have_button("Update Item Status")
+                    #find(".dropdown-list")
+                    #find(:css, '.dropdown-list').click_on(".a_different_dropdown")
+                  #  fill_in :status, with: 'pending'
+                  #  find("pending").click
+                #    find(:select, from, options).find(:status, value, options).select_option
+                  #  select "pending", :from => :status
+
+                    #click_on 'Update Item Status'
+                    #expect(page).to have_content("pending")
+                  end
+                  expect(current_path).to eq("/merchant/#{@merchant.id}/invoices/#{@invoice.id}")
+                end
+              end
+            end
+          end
+        end
       end
     end
   end

@@ -54,6 +54,13 @@ RSpec.describe 'Admin Invoices Show Page' do
             end
           end
         end
+        describe "I see the invoice status is a select field with the current invoice status" do
+          describe "When I click this field I can select a new status and click 'Update Invoice Status'" do
+            it "When I click this button, I am taken back to the same page and see the Invoice status updated" do
+              visit admin_invoice_path(@invoice)
+            end
+          end
+        end
       end
     end
   end

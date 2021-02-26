@@ -16,9 +16,9 @@ RSpec.describe 'Admin Invoices Index Page' do
         expect(current_path).to eq ("/admin/invoices")
         expect(page).to have_content("Admin Invoices")
         expect(page).to have_content("Invoice ##{@invoices.first.id}")
-        expect(page).to have_link(@invoices.first.id)
+        expect(page).to have_link("#{@invoices.first.id}")
         expect(page).to have_content("Invoice ##{@invoices.last.id}")
-        expect(page).to have_link(@invoices.last.id)
+        expect(page).to have_link("#{@invoices.last.id}")
 
         click_on("#{@invoices.first.id}")
         expect(current_path).to eq(admin_invoice_path(@invoices.first))

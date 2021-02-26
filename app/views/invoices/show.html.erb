@@ -1,4 +1,8 @@
-<h1>Invoice #<%= @invoice.id %></h1>
+<header>
+  <h1 class="alert alert-dark" style="width:500px"><center>Invoice #<%= @invoice.id %></center></h1>
+  <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
+</header>
+<h3 class="alert alert-info"><center>Invoice #<%= @invoice.id %></center></h3>
 <section class="invoice-information">
   <p>Status: <%= @invoice.status.titleize %></p>
   <p>Created on: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>

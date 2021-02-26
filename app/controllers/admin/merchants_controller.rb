@@ -28,7 +28,7 @@ class Admin::MerchantsController < ApplicationController
       flash[:success] = "Merchant successfully updated"
       redirect_to "/admin/merchants/#{merchant.id}"
     else
-      flash[:notice] = "Artist not created: Required information missing."
+      flash[:notice] = "Merchant not created: Required information missing."
       render :edit
     end
   end

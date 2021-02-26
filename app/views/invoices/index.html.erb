@@ -1,4 +1,8 @@
-<h1> My Invoices </h1>
+<header>
+  <h1 class="alert alert-dark" style="width:500px"><center><%= @merchant.name %></center></h1>
+  <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
+</header>
+<h3 class="alert alert-info"><center> My Invoices</center></h3>
 <section class="merchant-invoices">
   <% @merchant.distinct_invoices.each do |invoice| %>
     <div class="invoice-<%= invoice.id %>">

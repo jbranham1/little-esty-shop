@@ -1,9 +1,8 @@
 <header>
-  <h3 class="alert alert-dark" style="width:500px"><%= @merchant.name %></h3>
+  <h1 class="alert alert-dark" style="width:500px"><center><%= @merchant.name %></center></h1>
   <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
 </header>
-
-<h3>My Items</h3>
+<h3 class="alert alert-info"><center>My Items</center> </h3>
 <section class="all-items">
   <% @items.each do |item| %>
     <div id="item-<%= item.id %>">

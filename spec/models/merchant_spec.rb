@@ -18,6 +18,8 @@ RSpec.describe Merchant, type: :model do
     cool = Merchant.create!(name: "Cool Beans")
 
     expect(cool.status).to eq("enabled")
+    expect(cool.enabled?).to eq(true)
+    expect(cool.disabled?).to eq(false)
   end
 
   it 'can have status disabled' do
@@ -25,6 +27,8 @@ RSpec.describe Merchant, type: :model do
     cool.update!(status: :disabled)
 
     expect(cool.status).to eq("disabled")
+    expect(cool.enabled?).to eq(false)
+    expect(cool.disabled?).to eq(true)
   end
 
   describe 'instance methods' do

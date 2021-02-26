@@ -1,0 +1,12 @@
+<header>
+  <h1 class="alert alert-dark" style="width:500px"><center><%= @merchant.name %></center></h1>
+  <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
+</header>
+<h3 class="alert alert-info"><center>My Items</center> </h3>
+<section class="all-items">
+  <% @items.each do |item| %>
+    <div id="item-<%= item.id %>">
+      <%= link_to item.name, merchant_item_path(@merchant, item) %>
+    </div>
+  <% end %>
+</section>

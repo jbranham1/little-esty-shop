@@ -15,7 +15,6 @@ RSpec.describe 'Admin dashboard page' do
     expect(page).to have_button("Merchants")
     expect(page).to have_button("Invoices")
     expect(page).to have_content("Top Customers")
-
     expect(page).to have_content(@customers.top_5_customers_with_success.first.first_name)
     expect(page).to have_content(@customers.top_5_customers_with_success.first.last_name)
     expect(page).to have_content(@customers.top_5_customers_with_success.first.transaction_count)
@@ -57,4 +56,5 @@ RSpec.describe 'Admin dashboard page' do
     click_link(@invoices.incomplete_invoices.third.id)
     expect(current_path).to eq("/admin/invoices/#{@invoices.incomplete_invoices.third.id}")
   end
+
 end

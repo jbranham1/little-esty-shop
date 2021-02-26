@@ -1,0 +1,20 @@
+<div class="btn-group, overflow-auto d-flex justify-content-end">
+  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="sr-only ">Disabled Merchants</span>
+  </button>
+  <div class="dropdown-menu">
+      <% @merchants.distinct.each do |merchant| %>
+      <% if merchant.status == "disabled" %>
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-primary"><%=link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}", class: "dropdown-item", aria_pressed: true %></li>
+          <li class="list-group-item list-group-item-light"> Status: <%= merchant.status.capitalize %></li>
+        </ul>
+
+        <div class="btn-group">
+          <%= button_to "Enabled #{merchant.id}", "/admin/merchants/#{merchant.id}", method: :patch, local: true, class: "btn btn-secondary btn-sm ", params:{status: "enabled"} %>
+          <%= button_to "Disabled #{merchant.id}", "/admin/merchants/#{merchant.id}", method: :patch, local: true, class: "btn btn-secondary btn-sm ", params: {status: "disabled"} %>
+        </div><br>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,8 +1,5 @@
-<div class="links">
-  <ul>
-    <h1><%= merchant.name %></h1>
-    <button class="button4"><%= link_to "Dashboard", "/merchants/#{merchant.id}/dashboard", style: "text-decoration:none" %></button>
-    <%= button_to "My Items", "/merchant/#{merchant.id}/items", method: :get%>
-    <%= button_to "My Invoices", "/merchant/#{merchant.id}/invoices", method: :get%>
-  </ul>
+<div class="nav justify-content-end">
+  <%= button_to "Dashboard", "/merchant/#{merchant.id}/dashboard", method: :get, class: "btn btn-outline-light" %>
+  <%= button_to "My Items", "/merchant/#{merchant.id}/items", method: :get, class: "btn btn-outline-light" %>
+  <%= button_to "My Invoices", "/merchant/#{merchant.id}/invoices", method: :get, class: "btn btn-outline-light" %>
 </div>

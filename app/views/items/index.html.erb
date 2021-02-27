@@ -23,3 +23,14 @@
   <% end %>
   </section>
 </section>
+
+<section class="top-items">
+  <ol><h2>Top 5 Items</h2>
+    <% @merchant.top_5_items.each do |item| %>
+      <div id="item-<%= item.id %>">
+        <li><%= link_to item.name, merchant_item_path(@merchant, item) %> - <%= number_to_currency(item.total_revenue, precision: 0) %> in sales</li>
+        <p><%= item.top_sales_by_day %></p>
+      </div>
+    <% end %>
+  </ol>
+</section>

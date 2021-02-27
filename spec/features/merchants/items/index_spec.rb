@@ -84,4 +84,43 @@ RSpec.describe 'As a merchant, when I vist my Merchant Items Index Page' do
       expect(page).to_not have_content("#{@items.fourth.name}")
     end
   end
+
+  describe "and there is a section for Top 5 Items" do
+    it 'where I see a list ranked based on total revenue' do
+      merchant = Merchant.first
+      item1 = Item.find(10)
+      item2 = Item.find(7)
+      item3 = Item.find(3)
+      item4 = Item.find(15)
+      item5 = Item.find(9)
+      visit merchant_items_path(merchant)
+
+      within ".top-items" do
+        expect(page.all('a', text: 'Item').count).to eq(5)
+        expect(page).to have_content("#{item1.name}")
+        expect(item3.name).to appear_before(item1.name)
+        expect(item1.name).to appear_before(item5.name)
+        expect(item5.name).to appear_before(item2.name)
+        expect(item2.name).to appear_before(item4.name)
+      end
+    end
+
+    it "each of the item names are links to that item's show page" do
+      merchant = Merchant.first
+      item1 = Item.find(10)
+      visit merchant_items_path(merchant)
+
+      within ".top-items" do
+        expect(page.all('a', text: 'Item').count).to eq(5)
+        within "#item-#{item1.id}" do
+          click_link "#{item1.name}"
+          expect(current_path).to eq("/merchant/#{@merchant.id}/items/#{item1.id}")
+        end
+      end
+    end
+
+    it "text" do
+
+    end
+  end
 end

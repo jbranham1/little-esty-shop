@@ -29,17 +29,17 @@ class ItemsController < ApplicationController
 
   def new
     @merchant = Merchant.find(params[:merchant_id])
-    @item = Item.new(item_params)
+    @item = @merchant.items.new(item_params)
   end
 
   def create
-    merchant = Merchant.find(params[:merchant_id])
-    item = merchant.items.new(item_params)
-
-    if item.save
-      redirect_to merchant_items_path(merchant)
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = @merchant.items.new(item_params)
+    
+    if @item.save
+      redirect_to merchant_items_path(@merchant)
     else
-      flash[:errors] = item.errors.full_messages
+      flash[:errors] = @item.errors.full_messages
       render :new
     end
   end

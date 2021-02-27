@@ -5,9 +5,32 @@
 <h3 class="alert alert-info"><center>My Items</center> </h3>
 <%= button_to "Create Item", new_merchant_item_path(@merchant), method: :get %>
 <section class="all-items">
-  <% @items.each do |item| %>
+  <section class="enabled-items"><h4>Enabled Items</h4>
+  <% @items.enabled.each do |item| %>
     <div id="item-<%= item.id %>">
       <%= link_to item.name, merchant_item_path(@merchant, item) %>
+      <%= button_to 'Disable', merchant_items_status_path(@merchant.id, item.id, {item: {status: "disabled"}}), method: :patch %>
     </div>
   <% end %>
+  </section>
+
+  <section class="disabled-items"><h4>Disabled Items</h4>
+  <% @items.disabled.each do |item| %>
+    <div id="item-<%= item.id %>">
+      <%= link_to item.name, merchant_item_path(@merchant, item) %>
+      <%= button_to 'Enable', merchant_items_status_path(@merchant.id, item.id, {item: {status: "enabled"}}), method: :patch %>
+    </div>
+  <% end %>
+  </section>
+</section>
+
+<section class="top-items">
+  <ol><h2>Top 5 Items</h2>
+    <% @merchant.top_5_items.each do |item| %>
+      <div id="item-<%= item.id %>">
+        <li><%= link_to item.name, merchant_item_path(@merchant, item) %> - <%= number_to_currency(item.total_revenue, precision: 0) %> in sales</li>
+        <p>Top day for <%= item.name %> was <%= item.top_sales_day %></p>
+      </div>
+    <% end %>
+  </ol>
 </section>

@@ -17,4 +17,13 @@ class Item < ApplicationRecord
     .where(items: {merchant_id: merchant_id})
     .order('invoices.created_at')
   end
+
+  def top_sales_day
+    invoices
+    .select('invoices.created_at AS created_at, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
+    .group('invoices.created_at')
+    .max
+    .created_at
+    .strftime("%m/%d/%Y")
+  end
 end

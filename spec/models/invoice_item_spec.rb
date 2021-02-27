@@ -18,27 +18,43 @@ RSpec.describe InvoiceItem, type: :model do
   end
 
   it 'status can be pending' do
-     @invoice_items = InvoiceItem.all
-     expect(@invoice_items.first.status).to eq("pending")
-     expect(@invoice_items.first.pending?).to eq(true)
-     expect(@invoice_items.first.packaged?).to eq(false)
-     expect(@invoice_items.first.shipped?).to eq(false)
-   end
+    @invoice_items = InvoiceItem.all
+    expect(@invoice_items.first.status).to eq("pending")
+    expect(@invoice_items.first.pending?).to eq(true)
+    expect(@invoice_items.first.packaged?).to eq(false)
+    expect(@invoice_items.first.shipped?).to eq(false)
+  end
 
-   it 'status can be packaged' do
-       @invoice_items = InvoiceItem.all
-      expect(@invoice_items.second.status).to eq("packaged")
-      expect(@invoice_items.second.pending?).to eq(false)
-      expect(@invoice_items.second.packaged?).to eq(true)
-      expect(@invoice_items.second.shipped?).to eq(false)
-    end
+  it 'status can be packaged' do
+    @invoice_items = InvoiceItem.all
+    expect(@invoice_items.second.status).to eq("packaged")
+    expect(@invoice_items.second.pending?).to eq(false)
+    expect(@invoice_items.second.packaged?).to eq(true)
+    expect(@invoice_items.second.shipped?).to eq(false)
+  end
 
-    it 'status can be shipped' do
+  it 'status can be shipped' do
+    @invoice_item84 = InvoiceItem.find(84)
+     expect(@invoice_item84.status).to eq("shipped")
+     expect(@invoice_item84.pending?).to eq(false)
+     expect(@invoice_item84.packaged?).to eq(false)
+     expect(@invoice_item84.shipped?).to eq(true)
+  end
+
+  describe 'instance methods' do
+    describe '#unit_price_dollar' do
+      it "changes unit price to dollar format" do
         @invoice_item84 = InvoiceItem.find(84)
-       expect(@invoice_item84.status).to eq("shipped")
-       expect(@invoice_item84.pending?).to eq(false)
-       expect(@invoice_item84.packaged?).to eq(false)
-       expect(@invoice_item84.shipped?).to eq(true)
-     end
 
+        expect(@invoice_item84.unit_price_dollar).to eq("$#{@invoice_item84.unit_price}0")
+      end
+    end
+    describe '#revenue' do
+      it "gets revenue of " do
+        invoice_item = create(:invoice_item, unit_price: 2.5, quantity: 3, id: 1000)
+
+        expect(invoice_item.revenue).to eq(7.5)
+      end
+    end
+  end
 end

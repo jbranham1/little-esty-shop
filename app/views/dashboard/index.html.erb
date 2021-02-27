@@ -1,4 +1,7 @@
-<%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
+<header>
+  <h1 class="alert alert-dark" style="width:500px"><center><%= @merchant.name %></center></h1>
+  <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
+</header>
 <h2>Items Ready to Ship</h2>
 <section class="items-to-ship">
   <% if @items_ready_to_ship %>

@@ -9,4 +9,11 @@ class InvoiceItem < ApplicationRecord
   validates :unit_price, :quantity, numericality: { greater_than_or_equal_to: 0 }
   enum status: [:pending, :packaged, :shipped]
 
+  def unit_price_dollar
+    "$" + sprintf("%.2f", unit_price)
+  end
+
+  def revenue
+    unit_price * quantity
+  end
 end

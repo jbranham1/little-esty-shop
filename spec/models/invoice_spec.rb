@@ -33,4 +33,14 @@ RSpec.describe Invoice, type: :model do
     expect(invoice17.completed?).to eq(true)
     expect(invoice17.in_progress?).to eq(false)
   end
+
+  describe 'instance methods' do
+    describe '#total_revenue' do
+      it "gets sum of revenue for all invoice items on the invoice" do
+        invoice17 = Invoice.find(17)
+
+        expect(invoice17.total_revenue).to eq("$2474251.00")
+      end
+    end
+  end
 end

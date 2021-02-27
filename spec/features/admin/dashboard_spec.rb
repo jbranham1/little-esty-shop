@@ -45,7 +45,7 @@ RSpec.describe 'Admin dashboard page' do
 
     expect(page).to have_button("Incomplete Invoices")
     click_button("Incomplete Invoices")
-    click_link(@invoices.incomplete_invoices.first.id)
+    click_link("#{@invoices.incomplete_invoices.first.id}")
     expect(current_path).to eq("/admin/invoices/#{@invoices.incomplete_invoices.first.id}")
 
     visit "/admin"
@@ -53,7 +53,7 @@ RSpec.describe 'Admin dashboard page' do
     expect(page).to have_button("Incomplete Invoices")
     click_button("Incomplete Invoices")
     expect(page).to have_content(@invoices.incomplete_invoices.second.id)
-    click_link(@invoices.incomplete_invoices.third.id)
+    click_link("#{@invoices.incomplete_invoices.third.id}")
     expect(current_path).to eq("/admin/invoices/#{@invoices.incomplete_invoices.third.id}")
   end
 

@@ -44,7 +44,7 @@ RSpec.describe Customer, type: :model do
   end
 
   describe 'instance methods' do
-    describe '::full_name' do
+    describe '#full_name' do
       it "combines first and last name" do
         customer = Customer.find(4)
 

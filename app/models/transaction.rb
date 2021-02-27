@@ -5,6 +5,4 @@ class Transaction < ApplicationRecord
   validates_presence_of :credit_card_number
   enum result: [:success, :failed]
 
-  scope :successful_transactions, -> {where(result: 0)}
-
 end

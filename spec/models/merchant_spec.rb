@@ -44,5 +44,19 @@ RSpec.describe Merchant, type: :model do
         expect(merchant.distinct_invoices.pluck(:id)).to eq([invoice1.id])
       end
     end
+
+    describe '#top_5_items' do
+      it "returns the top 5 items based on total revenue for a merchant" do
+        merchant = Merchant.first
+
+        expect(merchant.top_5_items.first.name).to eq("Item Ea Voluptatum")
+        expect(merchant.top_5_items.second.name).to eq("Item Quidem Suscipit")
+        expect(merchant.top_5_items.third.name).to eq("Item Quo Magnam")
+        expect(merchant.top_5_items.fourth.name).to eq("Item Expedita Fuga")
+        expect(merchant.top_5_items.last.name).to eq("Item Rerum Est")
+        expect(merchant.top_5_items.first.total_revenue).to eq(0.1938060e7)
+        expect(merchant.top_5_items.last.total_revenue).to eq(0.255774e6)
+      end
+    end
   end
 end

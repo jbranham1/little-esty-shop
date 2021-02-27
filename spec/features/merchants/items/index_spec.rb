@@ -114,13 +114,22 @@ RSpec.describe 'As a merchant, when I vist my Merchant Items Index Page' do
         expect(page.all('a', text: 'Item').count).to eq(5)
         within "#item-#{item1.id}" do
           click_link "#{item1.name}"
-          expect(current_path).to eq("/merchant/#{@merchant.id}/items/#{item1.id}")
+          expect(current_path).to eq("/merchant/#{merchant.id}/items/#{item1.id}")
         end
       end
     end
 
-    it "text" do
+    it "below each of those items it show that item's best day of sales" do
+      merchant = Merchant.first
+      item1 = Item.find(10)
+      visit merchant_items_path(merchant)
 
+      within ".top-items" do
+        expect(page.all('p', text: '/').count).to eq(5)
+        within "#item-#{item1.id}" do
+          expect(page).to have_content("Top day for #{item1.name} was #{item1.top_sales_day}")
+        end
+      end
     end
   end
 end

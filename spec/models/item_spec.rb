@@ -55,4 +55,15 @@ RSpec.describe Item, type: :model do
       end
     end
   end
+
+  describe "instance methods" do
+    describe '#top_sales_day' do
+      it "returns the date with most sales based on total_revenue for a item" do
+        merchant = Merchant.first
+        item = Item.find(3)
+
+        expect(item.top_sales_day).to eq("03/07/2012")
+      end
+    end
+  end
 end

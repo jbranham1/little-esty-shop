@@ -42,4 +42,25 @@ RSpec.describe 'As a merchant, when I vist my Merchant Items Index Page' do
     click_button "Create Item"
     expect(current_path).to eq("/merchant/#{@merchant.id}/items/new")
   end
+
+  it "in my list of items they are grouped by status" do
+    @items.first.update!(status: :disabled)
+    @items.second.update!(status: :disabled)
+    @items.third.update!(status: :disabled)
+    visit merchant_items_path(@merchant)
+
+    within ".enabled-items" do
+      expect(page.all('a', text: 'Item').count).to eq(23)
+      expect(page).to have_content("#{@items.fourth.name}")
+      expect(page).to_not have_content("#{@items.first.name}")
+    end
+
+    within ".disabled-items" do
+      expect(page.all('a', text: 'Item').count).to eq(3)
+      expect(page).to_not have_content("#{@items.fourth.name}")
+      expect(page).to have_content("#{@items.first.name}")
+      expect(page).to have_content("#{@items.second.name}")
+      expect(page).to have_content("#{@items.third.name}")
+    end
+  end
 end

@@ -5,9 +5,19 @@
 <h3 class="alert alert-info"><center>My Items</center> </h3>
 <%= button_to "Create Item", new_merchant_item_path(@merchant), method: :get %>
 <section class="all-items">
-  <% @items.each do |item| %>
+  <section class="enabled-items"><h4>Enabled Items</h4>
+  <% @items.enabled.each do |item| %>
     <div id="item-<%= item.id %>">
       <%= link_to item.name, merchant_item_path(@merchant, item) %>
     </div>
   <% end %>
+  </section>
+
+  <section class="disabled-items"><h4>Disabled Items</h4>
+  <% @items.disabled.each do |item| %>
+    <div id="item-<%= item.id %>">
+      <%= link_to item.name, merchant_item_path(@merchant, item) %>
+    </div>
+  <% end %>
+  </section>
 </section>

@@ -1,0 +1,11 @@
+<header>
+  <h1 class="alert alert-dark" style="width:500px"><center><%= @merchant.name %></center></h1>
+  <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
+</header>
+<h3 class="alert alert-info"><center>Create a New Item</center> </h3>
+
+<%= render partial: "item_form",
+    locals: { path: merchant_items_path(@merchant),
+              method: :post,
+              item: @item,
+              button_text: "Create Item"} %>

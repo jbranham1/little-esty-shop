@@ -34,4 +34,12 @@ RSpec.describe 'As a merchant, when I vist my Merchant Items Index Page' do
       expect(current_path).to eq("/merchant/#{@merchant.id}/items/#{item.id}")
     end
   end
+
+  it "I see a button to create a new item" do
+    visit merchant_items_path(@merchant)
+
+    expect(page).to have_button("Create Item")
+    click_button "Create Item"
+    expect(current_path).to eq("/merchant/#{@merchant.id}/items/new")
+  end
 end

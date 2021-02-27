@@ -20,11 +20,11 @@ RSpec.describe 'As a merchant, when I vist my Merchant Items Index Page' do
       end
     end
 
-    it "but I cannot create a new item without a name" do
+    it "and I cannot create a new item without a name" do
 
     end
 
-    it "but I cannot create a new item without a current price" do
+    it "and I cannot create a new item without a current price" do
 
     end
   end

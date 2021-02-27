@@ -21,8 +21,7 @@
    word-wrap:break-word;
  }
 
- .center {
-   width: 50%;
-   margin: 0 auto;
-   display: inline-block;
+ table.center {
+   margin-left:auto;
+   margin-right:auto;
  }

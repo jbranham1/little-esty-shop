@@ -38,4 +38,13 @@ RSpec.describe 'Admin Merchants Index Page' do
     click_button("submit")
   end
 
+  it "has top merchant name as link to merchant show page" do
+    merchant = Merchant.find(14)
+    within "#merchant-#{merchant.id}" do
+      expect(page).to have_link(merchant.name)
+      click_link(merchant.name)
+      expect(current_path).to eq("/admin/merchants/#{merchant.id}")
+    end
+  end
+
 end

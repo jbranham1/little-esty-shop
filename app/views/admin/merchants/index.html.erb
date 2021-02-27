@@ -1,5 +1,8 @@
 <h3 class="alert alert-dark" style="width:300px">Admin Dashboard</h3>
 <%= render "/shared/admin_links" %><br>
+<div class="nav justify-content-begin" style="padding-bottom:15px">
+  <%= button_to "Create Merchant", "/admin/merchants/new", method: :get, local: true, class: "btn btn-outline-light" %>
+</div>
 <h1 class="alert alert-info"><center>Merchants Dashboard</center> </h1>
 
 
@@ -9,5 +12,22 @@
     <th><%= render partial: "disabled" %></th>
   </tr>
 </table>
-
-<%= button_to "Create Merchant", "/admin/merchants/new", method: :get, local: true %>
+<h1><center>Top Merchants</center></h1>
+<% @merchants.top_merchants.each do |merc| %>
+  <table class="table center table-borderless table-striped">
+    <thead style="text-align:center">
+      <tr>
+        <th scope="col">Merchant Name:</th>
+        <th scope="col">Top selling date:</th>
+        <th scope="col">Total Revenue:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="text-align:center">
+        <td id="merchant-<%= merc.id %>"><%=link_to "#{merc.name}", "/admin/merchants/#{merc.id}", style:"color:white"%></td>
+        <td><%= merc.top_sales_date.strftime("%A, %B %d, %Y") %></td>
+        <td>$<%= number_with_precision(merc.total_revenue, :precision => 2, :delimiter => ',')%><td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>

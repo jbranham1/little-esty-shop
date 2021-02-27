@@ -10,7 +10,7 @@
           <li class="list-group-item list-group-item-light"> Status: <%= merchant.status.capitalize %></li>
         </ul>
 
-        <div class="btn-group enable">
+        <div class="btn-group">
           <%= button_to "Enabled #{merchant.id}", "/admin/merchants/#{merchant.id}", method: :patch, local: true, class: "btn btn-secondary btn-sm ", params:{status: "enabled"} %>
           <%= button_to "Disabled #{merchant.id}", "/admin/merchants/#{merchant.id}", method: :patch, local: true, class: "btn btn-secondary btn-sm ", params: {status: "disabled"} %>
         </div><br>

@@ -1,15 +1,12 @@
-<h1>Invoice #<%= @invoice.id %></h1>
-<section class="invoice-information">
-  <p>Status: <%= @invoice.status.titleize %></p>
-  <p>Created on: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p>
-  <p>Total Revenue: <%= @invoice.total_revenue %></p>
-</section>
-<section class="invoice-customer">
-  <h3>Customer:</h3>
-  <p><%= @invoice.customer.full_name %></p>
-  <p><%= @invoice.customer.address %></p>
-  <p><%= @invoice.customer.city %>, <%= @invoice.customer.state %> <%= @invoice.customer.zipcode %></p>
-</section>
+<header>
+  <h1 class="alert alert-dark" style="width:500px"><center>Invoice #<%= @invoice.id %></center></h1>
+  <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
+</header>
+<h3 class="alert alert-info"><center>Invoice #<%= @invoice.id %></center></h3>
+
+<%= render partial: "/shared/invoice_information", locals: {invoice: @invoice, status: true} %><br>
+<%= render partial: "/shared/invoice_customer", locals: {customer: @invoice.customer} %><br>
+
 <section class="invoice-items">
   <h3>Items on this Invoice:</h3>
   <table class="table table-striped table-dark table-borderless " style="width:800px">

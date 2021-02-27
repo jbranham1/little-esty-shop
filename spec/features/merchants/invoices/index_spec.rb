@@ -13,8 +13,8 @@ RSpec.describe 'Merchant Invoices Index Page' do
           visit merchant_invoices_path(@merchant.id)
           expect(current_path).to eq("/merchant/#{@merchant.id}/invoices")
           within ".invoice-#{@invoices.first.id}" do
-            expect(page).to have_link(@invoices.first.id)
-            expect(page).to_not have_link(@invoices.last.id)
+            expect(page).to have_link("#{@invoices.first.id}")
+            expect(page).to_not have_link("#{@invoices.last.id}")
             click_link "#{@invoices.first.id}"
             expect(current_path).to eq("/merchant/#{@merchant.id}/invoices/#{@invoices.first.id}")
           end

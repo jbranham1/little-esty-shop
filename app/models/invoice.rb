@@ -12,4 +12,8 @@ class Invoice < ApplicationRecord
   def total_revenue
     "$" + sprintf("%.2f", invoice_items.sum(&:revenue))
   end
+
+  def distinct_status
+    [:in_progress, :cancelled, :completed]
+  end
 end

@@ -22,7 +22,7 @@ class Item < ApplicationRecord
     invoices
     .select('invoices.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenues')
     .joins(:transactions)
-    .where('transactions.result = ?', 1)
+    .where(transactions: {result: :success})
     .group('invoices.id')
     .order("total_revenues desc", "invoices.created_at desc")
     .first

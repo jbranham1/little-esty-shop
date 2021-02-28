@@ -22,7 +22,7 @@ class Merchant < ApplicationRecord
     invoices
     .select('invoices.*,count(invoice_items.id) as invoice_items_count')
     .joins(:transactions)
-    .where(transactions: {result: 0})
+    .where(transactions: {result: :success})
     .group(:id)
     .order('invoice_items_count desc')
     .first
@@ -37,7 +37,7 @@ class Merchant < ApplicationRecord
     items
     .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
     .joins(invoices: :transactions)
-    .where('transactions.result = ?', 1)
+    .where(transactions: {result: :success})
     .group('items.id')
     .order(total_revenue: :desc)
     .limit(5)

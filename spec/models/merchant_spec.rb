@@ -56,14 +56,19 @@ RSpec.describe Merchant, type: :model do
     describe '#top_5_items' do
       it "returns the top 5 items based on total revenue for a merchant" do
         merchant = Merchant.first
+        item1 = Item.find(3)
+        item2 = Item.find(13)
+        item3 = Item.find(1)
+        item4 = Item.find(6)
+        item5 = Item.find(5)
 
-        expect(merchant.top_5_items.first.name).to eq("Item Ea Voluptatum")
-        expect(merchant.top_5_items.second.name).to eq("Item Quidem Suscipit")
-        expect(merchant.top_5_items.third.name).to eq("Item Quo Magnam")
-        expect(merchant.top_5_items.fourth.name).to eq("Item Expedita Fuga")
-        expect(merchant.top_5_items.last.name).to eq("Item Rerum Est")
-        expect(merchant.top_5_items.first.total_revenue).to eq(0.1938060e7)
-        expect(merchant.top_5_items.last.total_revenue).to eq(0.255774e6)
+        expect(merchant.top_5_items.first).to eq(item3)
+        expect(merchant.top_5_items.second).to eq(item1)
+        expect(merchant.top_5_items.third).to eq(item5)
+        expect(merchant.top_5_items.fourth).to eq(item2)
+        expect(merchant.top_5_items.last).to eq(item4)
+        expect(merchant.top_5_items.first.total_revenue).to eq(0.2027889e7)
+        expect(merchant.top_5_items.last.total_revenue).to eq(0.780325e6)
       end
     end
   end

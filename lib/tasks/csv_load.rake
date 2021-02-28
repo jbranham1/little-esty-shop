@@ -10,6 +10,7 @@ namespace :csv_load do
     file = "db/data/merchants.csv"
 
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+      row[:status] = "enabled"
       Merchant.create!(row.to_hash)
       ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
     end
@@ -38,6 +39,7 @@ namespace :csv_load do
     file = "db/data/items.csv"
 
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+      row[:status] = "enabled"
       Item.create!(row.to_hash)
       ActiveRecord::Base.connection.reset_pk_sequence!('items')
     end

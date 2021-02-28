@@ -127,7 +127,7 @@ RSpec.describe 'As a merchant, when I visit my Merchant Items Index Page' do
       within ".top-items" do
         expect(page.all('p', text: '/').count).to eq(5)
         within "#item-#{item1.id}" do
-          expect(page).to have_content("Top day for #{item1.name} was #{item1.top_sales_date.strftime("%m/%d/%Y")}")
+          expect(page).to have_content("Top day for #{item1.name} was #{item1.invoice_items.top_sales_date.strftime("%m/%d/%Y")}")
         end
       end
     end

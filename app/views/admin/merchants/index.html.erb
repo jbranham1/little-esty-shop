@@ -25,7 +25,7 @@
     <tbody>
       <tr style="text-align:center">
         <td id="merchant-<%= merc.id %>"><%=link_to "#{merc.name}", "/admin/merchants/#{merc.id}", style:"color:white"%></td>
-        <td><%= merc.top_sales_date.strftime("%A, %B %d, %Y") %></td>
+        <td><%= merc.invoice_items.top_sales_date.strftime("%A, %B %d, %Y") %></td>
         <td>$<%= number_with_precision(merc.total_revenue, :precision => 2, :delimiter => ',')%><td>
       </tr>
     </tbody>

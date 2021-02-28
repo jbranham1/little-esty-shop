@@ -17,15 +17,4 @@ class Item < ApplicationRecord
     .where(items: {merchant_id: merchant_id})
     .order('invoices.created_at')
   end
-
-  def top_sales_date
-    invoices
-    .select('invoices.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenues')
-    .joins(:transactions)
-    .where(transactions: {result: :success})
-    .group('invoices.id')
-    .order("total_revenues desc", "invoices.created_at desc")
-    .first
-    .created_at
-  end
 end

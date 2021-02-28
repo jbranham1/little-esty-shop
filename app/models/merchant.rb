@@ -18,17 +18,6 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
-  def top_sales_date
-    invoices
-    .select('invoices.*,count(invoice_items.id) as invoice_items_count')
-    .joins(:transactions)
-    .where(transactions: {result: :success})
-    .group(:id)
-    .order('invoice_items_count desc')
-    .first
-    .created_at
-  end
-
   def distinct_invoices
     invoices.distinct
   end

@@ -16,16 +16,16 @@ RSpec.describe Item, type: :model do
     it {should validate_numericality_of(:unit_price).is_greater_than_or_equal_to(0)}
   end
 
-  it 'is created with status enabled when not provided' do
+  it 'is created with status disabled when not provided' do
     cool = Merchant.create!(name: "Cool Beans")
     red = cool.items.create!(
             name: "Red Paint",
             description: "2 oz of red acrylic paint",
             unit_price: 8.99)
 
-    expect(red.status).to eq("enabled")
-    expect(red.enabled?).to eq(true)
-    expect(red.disabled?).to eq(false)
+    expect(red.status).to eq("disabled")
+    expect(red.disabled?).to eq(true)
+    expect(red.enabled?).to eq(false)
   end
 
   it 'can have status disabled' do
@@ -34,11 +34,11 @@ RSpec.describe Item, type: :model do
             name: "Red Paint",
             description: "2 oz of red acrylic paint",
             unit_price: 8.99)
-    red.update!(status: :disabled)
+    red.update!(status: :enabled)
 
-    expect(red.status).to eq("disabled")
-    expect(red.enabled?).to eq(false)
-    expect(red.disabled?).to eq(true)
+    expect(red.status).to eq("enabled")
+    expect(red.disabled?).to eq(false)
+    expect(red.enabled?).to eq(true)
   end
 
   describe 'class methods' do

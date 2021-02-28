@@ -18,7 +18,7 @@ class Item < ApplicationRecord
     .order('invoices.created_at')
   end
 
-  def top_sales_day
+  def top_sales_date
     invoices
     .select('invoices.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenues')
     .joins(:transactions)

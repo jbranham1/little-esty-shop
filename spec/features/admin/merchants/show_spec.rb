@@ -14,8 +14,8 @@ RSpec.describe 'Admin Merchants Show Page' do
     expect(page).to have_content(@merchants.first.name)
     expect(page).to have_content("Admin Dashboard")
     expect(page).to have_button("Admin Dashboard")
-
   end
+  
   it "Test Update button and can update" do
 
     expect(page).to have_button("Update Merchant")
@@ -27,5 +27,4 @@ RSpec.describe 'Admin Merchants Show Page' do
     expect(current_path).to eq("/admin/merchants/#{@merchants.first.id}")
     expect(page).to have_content("Leftorium")
   end
-
 end

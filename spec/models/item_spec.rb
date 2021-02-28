@@ -55,15 +55,4 @@ RSpec.describe Item, type: :model do
       end
     end
   end
-
-  describe "instance methods" do
-    describe '#top_sales_date' do
-      it "returns the date with most sales based on total_revenue for a item" do
-        item = Merchant.first.items.where(id: 3).first
-        invoice = item.invoices.where(id: 484).first
-
-        expect(item.top_sales_date).to eq("#{invoice.created_at}")
-      end
-    end
-  end
 end

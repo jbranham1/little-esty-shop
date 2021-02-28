@@ -57,4 +57,13 @@ RSpec.describe InvoiceItem, type: :model do
       end
     end
   end
+
+  describe 'class methods' do
+    describe '::top_sales_date' do
+      it "returns the date with most sales based on total_revenue" do
+        @invoice = Invoice.find(323)
+        expect(InvoiceItem.top_sales_date).to eq(@invoice.created_at)
+      end
+    end
+  end
 end

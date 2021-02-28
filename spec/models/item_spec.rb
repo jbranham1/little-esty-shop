@@ -59,10 +59,10 @@ RSpec.describe Item, type: :model do
   describe "instance methods" do
     describe '#top_sales_day' do
       it "returns the date with most sales based on total_revenue for a item" do
-        merchant = Merchant.first
-        item = Item.find(3)
+        item = Merchant.first.items.where(id: 3).first
+        invoice = item.invoices.where(id: 484).first
 
-        expect(item.top_sales_day).to eq("03/07/2012")
+        expect(item.top_sales_day).to eq("#{invoice.created_at}")
       end
     end
   end

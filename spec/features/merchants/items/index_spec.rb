@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'As a merchant, when I vist my Merchant Items Index Page' do
+RSpec.describe 'As a merchant, when I visit my Merchant Items Index Page' do
   before :each do
     @merchant = Merchant.third
     @items = @merchant.items
@@ -122,12 +122,13 @@ RSpec.describe 'As a merchant, when I vist my Merchant Items Index Page' do
     it "below each of those items it show that item's best day of sales" do
       merchant = Merchant.first
       item1 = Item.find(10)
+
       visit merchant_items_path(merchant)
 
       within ".top-items" do
         expect(page.all('p', text: '/').count).to eq(5)
         within "#item-#{item1.id}" do
-          expect(page).to have_content("Top day for #{item1.name} was #{item1.top_sales_day}")
+          expect(page).to have_content("Top day for #{item1.name} was #{item1.top_sales_day.strftime("%m/%d/%Y")}")
         end
       end
     end

@@ -20,10 +20,12 @@ class Item < ApplicationRecord
 
   def top_sales_day
     invoices
-    .select('invoices.created_at AS created_at, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
-    .group('invoices.created_at')
-    .max
+    .select('invoices.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenues')
+    .joins(:transactions)
+    .where('transactions.result = ?', 1)
+    .group('invoices.id')
+    .order("total_revenues desc", "invoices.created_at desc")
+    .first
     .created_at
-    .strftime("%m/%d/%Y")
   end
 end

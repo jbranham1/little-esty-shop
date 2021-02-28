@@ -14,21 +14,29 @@ RSpec.describe Merchant, type: :model do
     it {should validate_presence_of :name}
   end
 
-  it 'is created with status enabled when not provided' do
+  it 'is created with status disabled when not provided' do
     cool = Merchant.create!(name: "Cool Beans")
-
-    expect(cool.status).to eq("enabled")
-    expect(cool.enabled?).to eq(true)
-    expect(cool.disabled?).to eq(false)
-  end
-
-  it 'can have status disabled' do
-    cool = Merchant.create!(name: "Cool Beans")
-    cool.update!(status: :disabled)
 
     expect(cool.status).to eq("disabled")
-    expect(cool.enabled?).to eq(false)
     expect(cool.disabled?).to eq(true)
+    expect(cool.enabled?).to eq(false)
+  end
+
+  it 'can have status enabled' do
+    cool = Merchant.create!(name: "Cool Beans")
+    cool.update!(status: :enabled)
+
+    expect(cool.status).to eq("enabled")
+    expect(cool.disabled?).to eq(false)
+    expect(cool.enabled?).to eq(true)
+  end
+
+  describe 'class methods' do
+    describe '::top_5_by_revenue' do
+      it 'returns top 5 merchants based on total revenue' do
+        # Need test for this class method
+      end
+    end
   end
 
   describe 'instance methods' do

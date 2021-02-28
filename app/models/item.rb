@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   validates_presence_of :name, :unit_price
   validates :unit_price, numericality: { greater_than_or_equal_to: 0 }
 
-  enum status: [:enabled, :disabled]
+  enum status: [:disabled, :enabled]
 
   def self.ready_to_ship_by_merchant(merchant_id)
     joins(invoice_items: :invoice)
@@ -18,12 +18,14 @@ class Item < ApplicationRecord
     .order('invoices.created_at')
   end
 
-  def top_sales_day
+  def top_sales_date
     invoices
-    .select('invoices.created_at AS created_at, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
-    .group('invoices.created_at')
-    .max
+    .select('invoices.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenues')
+    .joins(:transactions)
+    .where(transactions: {result: :success})
+    .group('invoices.id')
+    .order("total_revenues desc", "invoices.created_at desc")
+    .first
     .created_at
-    .strftime("%m/%d/%Y")
   end
 end

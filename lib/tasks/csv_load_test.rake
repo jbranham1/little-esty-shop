@@ -11,6 +11,7 @@ namespace :fixtures do
       file = "spec/fixtures/files/merchants_test.csv"
 
       CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+        row[:status] = "enabled"
         Merchant.create!(row.to_hash)
       end
     end
@@ -38,6 +39,7 @@ namespace :fixtures do
       file = "spec/fixtures/files/items_test.csv"
 
       CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+        row[:status] = "enabled"
         Item.create!(row.to_hash)
       end
     end

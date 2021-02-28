@@ -6,7 +6,7 @@
 <%= button_to "Create Item", new_merchant_item_path(@merchant), method: :get %>
 <section class="all-items">
   <section class="enabled-items"><h4>Enabled Items</h4>
-  <% @items.enabled.each do |item| %>
+  <% @merchant.items.enabled.each do |item| %>
     <div id="item-<%= item.id %>">
       <%= link_to item.name, merchant_item_path(@merchant, item) %>
       <%= button_to 'Disable', merchant_items_status_path(@merchant.id, item.id, {item: {status: "disabled"}}), method: :patch %>
@@ -15,7 +15,7 @@
   </section>
 
   <section class="disabled-items"><h4>Disabled Items</h4>
-  <% @items.disabled.each do |item| %>
+  <% @merchant.items.disabled.each do |item| %>
     <div id="item-<%= item.id %>">
       <%= link_to item.name, merchant_item_path(@merchant, item) %>
       <%= button_to 'Enable', merchant_items_status_path(@merchant.id, item.id, {item: {status: "enabled"}}), method: :patch %>

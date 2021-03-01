@@ -63,15 +63,8 @@ RSpec.describe 'Merchant Invoices Show Page' do
                   within ".invoice-item-#{@invoice_item.id}" do
                     expect(page).to have_content(@invoice_item.status)
                     expect(page).to have_button("Update Item Status")
-                    #find(".dropdown-list")
-                    #find(:css, '.dropdown-list').click_on(".a_different_dropdown")
-                  #  fill_in :status, with: 'pending'
-                  #  find("pending").click
-                #    find(:select, from, options).find(:status, value, options).select_option
-                  #  select "pending", :from => :status
 
-                    #click_on 'Update Item Status'
-                    #expect(page).to have_content("pending")
+                    click_button("Update Item Status")
                   end
                   expect(current_path).to eq("/merchant/#{@merchant.id}/invoices/#{@invoice.id}")
                 end

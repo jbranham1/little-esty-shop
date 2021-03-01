@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   validates_presence_of :name, :unit_price
   validates :unit_price, numericality: { greater_than_or_equal_to: 0 }
 
-  enum status: [:enabled, :disabled]
+  enum status: [:disabled, :enabled]
 
   def self.ready_to_ship_by_merchant(merchant_id)
     joins(invoice_items: :invoice)

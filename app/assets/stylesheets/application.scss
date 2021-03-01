@@ -13,15 +13,24 @@
  *= require_tree .
  *= require_self
  */
- table td
- {
-   table-layout:fixed;
-   width:20%;
-   overflow:hidden;
-   word-wrap:break-word;
+ #table-wrapper {
+   position:relative;
+   margin-top:20px;
+   margin-right: 20px;
+ }
+ #table-scroll {
+   height:400px;
+   overflow:auto;
+   margin-top:20px;
+ }
+ #table-wrapper table {
+   width:100%;
  }
 
- table.center {
-   margin-left:auto;
-   margin-right:auto;
+ #table-wrapper table thead th .text {
+   position:absolute;
+   top:-20px;
+   z-index:2;
+   height:20px;
+   width:auto;
  }

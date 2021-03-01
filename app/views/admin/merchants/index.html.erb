@@ -14,7 +14,6 @@
 </table>
 
 <h2><center>Top Merchants</center></h2>
-
   <table class="table center table-striped table-borderless">
     <thead style="text-align:center">
       <tr>
@@ -23,11 +22,11 @@
         <th scope="col">Total Revenue:</th>
       </tr>
     </thead>
-    <% @merchants.top_merchants.each do |merc| %>
+    <% @merchants.top_5_by_revenue.each do |merc| %>
     <tbody>
       <tr style="text-align:center" class="border_bottom">
         <td id="merchant-<%= merc.id %>"><%=link_to "#{merc.name}", "/admin/merchants/#{merc.id}", style:"color:white"%></td>
-        <td><%= merc.top_sales_date.strftime("%A, %B %d, %Y") %></td>
+        <td><%= merc.invoice_items.top_sales_date.strftime("%A, %B %d, %Y") %></td>
         <td>$<%= number_with_precision(merc.total_revenue, :precision => 2, :delimiter => ',')%><td>
       </tr>
     </tbody>

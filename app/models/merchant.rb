@@ -9,16 +9,20 @@ class Merchant < ApplicationRecord
 
   enum status: [:disabled, :enabled]
 
-  scope :top_merchants, -> {select('merchants.*,sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').joins(items: [{invoice_items: :invoice}, :transactions]).where(transactions: {result: :success}).group(:id).order('total_revenue desc').limit(5)}
 
-  # after_initialize :default
+  # scope :top_merchants, -> {select('merchants.*,sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').joins(items: [{invoice_items: :invoice}, :transactions]).where(transactions: {result: :success}).group(:id).order('total_revenue desc').limit(5)}
 
-
-  # def default
-  #   self.status == "disabled"
-  # end
   def top_sales_date
     invoices.joins(:transactions).where(transactions: {result: 0}).select('invoices.*,count(invoice_items.id) as invoice_items_count').group(:id).order('invoice_items_count desc').first.created_at
+  end
+
+  def self.top_5_by_revenue
+    select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
+    .joins(items: [{invoice_items: :invoice}, :transactions])
+    .where(transactions: {result: :success})
+    .group(:id)
+    .order('total_revenue desc')
+    .limit(5)
   end
 
   def distinct_invoices
@@ -27,9 +31,9 @@ class Merchant < ApplicationRecord
 
   def top_5_items
     items
-    .joins(invoices: :transactions)
     .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
-    .where('transactions.result = ?', 1)
+    .joins(invoices: :transactions)
+    .where(transactions: {result: :success})
     .group('items.id')
     .order(total_revenue: :desc)
     .limit(5)

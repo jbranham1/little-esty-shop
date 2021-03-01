@@ -3,7 +3,7 @@
 <h1 class="alert alert-info"><center>Invoice #<%= @invoice.id %></center> </h1>
 <section class= "invoice-status">
   Invoice Status:
-  <%= form_with url: "#{@invoice.id}", method: :patch, model: @invoice, local: true do |f| %>
+  <%= form_with url: "/admin/invoices/#{@invoice.id}", method: :patch, model: @invoice, local: true do |f| %>
     <%= f.select(:status, [:in_progress, :cancelled, :completed], value: :status) %>
     <%= f.submit "Update Invoice" %>
   <% end %>

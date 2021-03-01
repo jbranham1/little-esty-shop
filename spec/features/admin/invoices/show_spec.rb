@@ -17,7 +17,6 @@ RSpec.describe 'Admin Invoices Show Page' do
 
         expect(page).to have_content("Invoice ##{@invoice.id}")
         within ".invoice-information" do
-          expect(page).to have_content("Status: #{@invoice.status.titleize}")
           expect(page).to have_content("Created on: #{@invoice.created_at.strftime('%A, %B %d, %Y')}")
         end
       end

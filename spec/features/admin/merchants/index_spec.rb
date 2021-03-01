@@ -9,19 +9,7 @@ RSpec.describe 'Admin Merchants Index Page' do
     visit "/admin/merchants"
   end
 
-  it "test page contents" do
-    expect(page).to have_content("Enabled Merchants")
-    expect(page).to have_button("Enabled Merchants")
-    click_button("Enabled Merchants")
-  end
-
-  it "test Enabled button" do
-    click_button("Enabled Merchants")
-    click_button("Enabled #{@merchants.first.id}")
-  end
-
   it "Can Create Merchant" do
-
     expect(page).to have_button("Create Merchant")
     click_button("Create Merchant")
     expect(current_path).to eq("/admin/merchants/new")
@@ -45,4 +33,13 @@ RSpec.describe 'Admin Merchants Index Page' do
       expect(current_path).to eq("/admin/merchants/#{merchant.id}")
     end
   end
+
+  it "has ability to disable merchant" do
+    merchant = Merchant.find(14)
+    within "#en_merchant-#{merchant.id}" do
+      expect(page).to have_button("Disabled")
+      click_button("Disabled")
+    end
+  end
+
 end

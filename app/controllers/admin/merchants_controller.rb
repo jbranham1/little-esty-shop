@@ -20,16 +20,16 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def update
-    merchant = Merchant.find(params[:id])
+    @merchant = Merchant.find(params[:id])
     if params[:status]
-      merchant.update(merchants_params)
+      @merchant.update(merchants_params)
       flash[:success] = "Merchant successfully updated"
       redirect_to "/admin/merchants"
-    elsif merchant.update(merchants_params)
+    elsif @merchant.update(merchants_params)
       flash[:success] = "Merchant successfully updated"
-      redirect_to "/admin/merchants/#{merchant.id}"
+      redirect_to "/admin/merchants/#{@merchant.id}"
     else
-      flash[:notice] = "Merchant not created: Required information missing."
+      flash[:notice] = @merchant.errors.full_messages
       render :edit
     end
   end

@@ -28,7 +28,7 @@ RSpec.describe 'As a merchant, when I visit my Merchant Items Index Page' do
     item = @merchant.items.first
     visit merchant_items_path(@merchant)
 
-    within "#item-#{item.id}" do
+    within "#en_item-#{item.id}" do
       expect(page).to have_link("#{item.name}")
       click_link "#{item.name}"
       expect(current_path).to eq("/merchant/#{@merchant.id}/items/#{item.id}")
@@ -68,7 +68,7 @@ RSpec.describe 'As a merchant, when I visit my Merchant Items Index Page' do
     visit merchant_items_path(@merchant)
 
     within ".enabled-items" do
-      within "#item-#{@items.fourth.id}" do
+      within "#en_item-#{@items.fourth.id}" do
         expect(page).to have_button("Disable")
         click_button "Disable"
       end
@@ -123,12 +123,8 @@ RSpec.describe 'As a merchant, when I visit my Merchant Items Index Page' do
       item1 = Item.find(13)
 
       visit merchant_items_path(merchant)
-
-      within ".top-items" do
-        expect(page.all('p', text: '/').count).to eq(5)
         within "#item-#{item1.id}" do
-          expect(page).to have_content("Top day for #{item1.name} was #{item1.invoice_items.top_sales_date.strftime("%m/%d/%Y")}")
-        end
+          expect(page).to have_content("#{item1.invoice_items.top_sales_date.strftime("%m/%d/%Y")}")
       end
     end
   end

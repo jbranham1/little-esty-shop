@@ -29,7 +29,7 @@ RSpec.describe 'As a merchant, when I visit a Merchant Item Show Page' do
 
       expect(current_path).to eq("/merchant/#{@merchant.id}/items/#{@item.id}")
       @item.reload
-      expect(page).to have_content("#{@item.name} successfully updated")
+      expect(page).to have_content("#{@item.name}'s successfully updated")
       expect(page).to have_content("#{@item.description}")
       expect(page).to have_content("$300")
     end

@@ -2,11 +2,29 @@
   <h1 class="alert alert-dark" style="width:500px"><center><%= @merchant.name %></center></h1>
   <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
 </header>
+<%= render "shared/flash" %>
+
 <h3 class="alert alert-info"><center> My Invoices</center></h3>
+
 <section class="merchant-invoices">
-  <% @merchant.distinct_invoices.each do |invoice| %>
-    <div class="invoice-<%= invoice.id %>">
-      <p>Invoice #<%= link_to invoice.id, merchant_invoice_path(@merchant, invoice) %></p>
+  <div id="table-wrapper">
+    <div id="table-scroll">
+      <table class="table table-striped table-borderless" style="width:50%">
+        <thead >
+          <tr>
+            <th scope="col"><span class="text white_glow"><h2>Invoice ID:</h2></span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @merchant.distinct_invoices.each do |invoice| %>
+            <tr>
+              <div class="invoice-<%= invoice.id %>">
+                <td><%= link_to invoice.id, merchant_invoice_path(@merchant, invoice), style: "color:white"%></td>
+              </div>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-  <% end %>
+  </div>
 </section>

@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
 
     if @item.update(item_params)
-      flash[:notice] = "#{@item.name} successfully updated"
+      flash[:notice] = "#{@item.name}'s successfully updated"
       render :show
     else
       flash[:errors] = @item.errors.full_messages

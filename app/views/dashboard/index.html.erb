@@ -2,23 +2,67 @@
   <h1 class="alert alert-dark" style="width:500px"><center><%= @merchant.name %></center></h1>
   <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
 </header>
-<h2>Items Ready to Ship</h2>
-<section class="items-to-ship">
-  <% if @items_ready_to_ship %>
-    <% @items_ready_to_ship.each do |item| %>
-      <div class="item-<%= item.inv_item_id %>">
-        <p><%= item.name %> - Invoice <%= link_to item.inv_id, merchant_invoice_path(@merchant, item.inv_id) %> - <%= item.invoice_date.strftime('%A, %B %d, %Y') %></p>
-      </div>
-    <% end %>
-  <% end %>
+<center> <%= render "shared/flash" %> </center>
+<h1 class="alert alert-info"><center>Main</center> </h1>
+
+<section class="favorite-customers" style="float:none">
+  <h2 class="white_glow" style="text-align:center">Favorite Customers</h2>
+  <table class="table table-striped table-borderless">
+    <thead style="text-align:center">
+      <tr>
+        <th scope="col"><span class="text white_glow">Last Name:</span></th>
+        <th scope="col"><span class="text white_glow">First Name:</span></th>
+        <th scope="col"><span class="text white_glow">Purchases:</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <section>
+        <% if @top_customers_for_merchant %>
+        <% @top_customers_for_merchant.each do |customer| %>
+        <tr style="text-align:center">
+          <td><%= customer.last_name %></td>
+          <td><%= customer.first_name %></td>
+          <td><%= customer.transaction_count %></td>
+        </tr>
+        <% end %>
+        <% end %>
+      </section>
+    </tbody>
+  </table>
 </section>
-<section class="favorite-customers">
-  <h2>Favorite Customers</h2>
-    <% if @top_customers_for_merchant %>
-    <ol>
-      <% @top_customers_for_merchant.each do |customer| %>
-        <li><%= customer.full_name %> - <%= customer.transaction_count%> purchases</li>
-      <% end %>
-    </ol>
-    <% end %>
+
+<section style="float:none">
+  <h2 class="white_glow" style="text-align:center">Items Ready to Ship</h2><br>
+    <div id="table-wrapper">
+      <div id="table-scroll">
+        <table class="table table-striped table-borderless">
+          <thead>
+            <tr>
+              <th scope="col">
+                <span class="text white_glow">Name:</span>
+              </th>
+              <th scope="col">
+                <span class="text white_glow">Date:</span>
+              </th>
+              <th scope="col">
+                <span class="text white_glow">Invoice</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <section class="items-to-ship">
+              <% if @items_ready_to_ship %>
+                <% @items_ready_to_ship.each do |item| %>
+                  <tr class="item-<%= item.inv_item_id %>">
+                    <td><%= item.name %></td>
+                    <td><%= item.invoice_date.strftime('%A, %B %d, %Y')%></td>
+                    <td><%= link_to "##{item.inv_id}", merchant_invoice_path(@merchant, item.inv_id), style: "color:white"%></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </section>
+          </tbody>
+        </table>
+      </div>
+    </div>
 </section>

@@ -7,7 +7,7 @@
         <table class="table table-striped table-borderless">
           <thead >
             <tr>
-              <th scope="col"><span class="text"><h2>Incomplete Invoices:</h2></span></th>
+              <th scope="col"><span class="text white_glow"><h2>Incomplete Invoices:</h2></span></th>
             </tr>
           </thead>
           <% @invoices.incomplete_invoices.each do |invoice| %>
@@ -20,24 +20,25 @@
           </table>
         </div>
      </div>
-<section class="top-customers">
-<h2 style="width:50%"><center> Top Customers</center></h2>
 
-  <table class="table table-striped table-borderless" style="width:50%">
-    <thead style="text-align:center">
-      <tr>
-        <th scope="col">First Name:</th>
-        <th scope="col">Last Name:</th>
-        <th scope="col">Purchases:</th>
-      </tr>
-    </thead>
-    <% @customers.top_5_customers_with_success.each do |cust| %>
-    <tbody>
-      <tr style="text-align:center">
-        <td><%= cust.first_name %></td>
-        <td><%= cust.last_name %></td>
-        <td><%= cust.transaction_count %></td>
-      </tr>
-    </tbody>
-<% end %>
-</table>
+<section class="top-customers">
+  <h2 style="width:50%" class="white_glow"><center> Top Customers</center></h2>
+    <table class="table table-striped table-borderless" style="width:50%">
+      <thead style="text-align:center">
+        <tr>
+          <th scope="col" class="white_glow">First Name:</th>
+          <th scope="col" class="white_glow">Last Name:</th>
+          <th scope="col" class="white_glow">Purchases:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @customers.top_5_customers_with_success.each do |cust| %>
+          <tr style="text-align:center">
+            <td><%= cust.first_name %></td>
+            <td><%= cust.last_name %></td>
+            <td><%= cust.transaction_count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+</section>

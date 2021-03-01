@@ -17,6 +17,7 @@
    position:relative;
    margin-top:20px;
    margin-right: 20px;
+   margin-bottom: 20px;
  }
  #table-scroll {
    height:400px;
@@ -32,5 +33,13 @@
    top:-20px;
    z-index:2;
    height:20px;
-   width:auto;
+   width:300px;
  }
+
+ .white_glow { color: white;
+    text-shadow: 1px 1px 2px black, 0 0 10px white, 0 0 5px grey;
+       }
+
+.red_glow { color: white;
+text-shadow: 1px 1px 2px black, 0 0 10px red, 0 0 5px darkred;
+}

@@ -1,6 +1,8 @@
 <section class="invoice-customer">
   <h3>Customer:</h3>
   <p><%= customer.full_name %></p>
+  <% if !customer.address.empty? %>
   <p><%= customer.address %></p>
-  <p><%= customer.city %> <%= customer.state %> <%= customer.zipcode %></p>
+  <p><%= customer.city %>, <%= customer.state %> <%= customer.zipcode %></p>
+  <% end %>
 </section>

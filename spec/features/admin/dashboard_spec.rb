@@ -56,8 +56,7 @@ RSpec.describe 'Admin dashboard page' do
           expect(current_path).to eq("/admin/invoices/#{@invoices.incomplete_invoices.third.id}")
         end
         it "Next to each invoice id I see the date that the invoice was created formatted like Monday, July 18, 2019" do
-        end
-        it "And I see that the list is ordered from oldest to newest'" do
+          expect(page).to have_content(@invoices.incomplete_invoices.second.created_at.strftime('%A, %B %d, %Y'))
         end
       end
     end

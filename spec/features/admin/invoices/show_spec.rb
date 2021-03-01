@@ -57,7 +57,11 @@ RSpec.describe 'Admin Invoices Show Page' do
           describe "When I click this field I can select a new status and click 'Update Invoice Status'" do
             it "When I click this button, I am taken back to the same page and see the Invoice status updated" do
               visit admin_invoice_path(@invoice)
+              @invoice.update(status: :in_progress)
+              page.find(:xpath, "//*[@id='invoice_status']/option[2]").click
               click_button("Update Invoice")
+
+              expect(current_path).to eq(admin_invoice_path(@invoice))
             end
           end
         end

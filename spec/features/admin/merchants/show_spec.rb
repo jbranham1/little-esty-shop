@@ -8,23 +8,25 @@ RSpec.describe 'Admin Merchants Show Page' do
     @merchants = Merchant.all
     visit "/admin/merchants/#{@merchants.first.id}"
   end
+  describe "As an admin," do
+    describe "When I visit the admin merchant show page" do
+      it "I see the name of that merchant along with the header links" do
+        expect(page).to have_content(@merchants.first.name)
+        expect(page).to have_content("Admin Dashboard")
+        expect(page).to have_button("Admin Dashboard")
+      end
 
-  it "test page contents" do
+      it "Test Update button and can update" do
 
-    expect(page).to have_content(@merchants.first.name)
-    expect(page).to have_content("Admin Dashboard")
-    expect(page).to have_button("Admin Dashboard")
-  end
-  
-  it "Test Update button and can update" do
+        expect(page).to have_button("Update Merchant")
+        click_button("Update Merchant")
+        expect(current_path).to eq("/admin/merchants/#{@merchants.first.id}/edit")
+        fill_in :name, with: "Leftorium"
 
-    expect(page).to have_button("Update Merchant")
-    click_button("Update Merchant")
-    expect(current_path).to eq("/admin/merchants/#{@merchants.first.id}/edit")
-    fill_in :name, with: "Leftorium"
-
-    click_button("submit")
-    expect(current_path).to eq("/admin/merchants/#{@merchants.first.id}")
-    expect(page).to have_content("Leftorium")
+        click_button("submit")
+        expect(current_path).to eq("/admin/merchants/#{@merchants.first.id}")
+        expect(page).to have_content("Leftorium")
+      end
+    end
   end
 end

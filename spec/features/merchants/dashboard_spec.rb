@@ -34,8 +34,8 @@ RSpec.describe 'Merchant Dashboard' do
 
         within '.favorite-customers' do
           expect(page).to have_content('Favorite Customers')
-          expect(page).to have_content('Anya MacGyver - 3 purchases')
-          expect(page).to have_content('Liliana Zulauf - 2 purchases')
+          expect(page).to have_content('Anya')
+          expect(page).to have_content('Zulauf')
           expect(customer1.first_name).to appear_before(customer3.first_name)
           expect(customer3.first_name).to appear_before(customer2.first_name)
           expect(page).to_not have_content('Markus Grady')
@@ -54,7 +54,8 @@ RSpec.describe 'Merchant Dashboard' do
           visit merchant_dashboard_index_path(merchant.id)
 
           expect(page).to have_content("Items Ready to Ship")
-          expect(page).to have_content("#{item1.name} - Invoice #{invoice1.id} - #{invoice1.created_at.strftime('%A, %B %d, %Y')}")
+          expect(page).to have_content("#{item1.name}")
+          expect(page).to have_content("#{invoice1.created_at.strftime('%A, %B %d, %Y')}")
           expect(item2.name).to appear_before(item1.name)
         end
         it "And next to each Item the id of the invoice that is a link to my merchant's invoice show page" do

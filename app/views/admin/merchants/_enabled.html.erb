@@ -1,20 +1,26 @@
-<div class="btn-group, overflow-auto d-flex justify-content-start">
-  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span class="sr-only ">Enabled Merchants</span>
-  </button>
-  <div class="dropdown-menu">
-      <% @merchants.distinct.each do |merchant| %>
-      <% if merchant.status == "enabled" %>
-        <ul class="list-group">
-          <li class="list-group-item list-group-item-primary"><%=link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}", class: "dropdown-item", aria_pressed: true %></li>
-          <li class="list-group-item list-group-item-light"> Status: <%= merchant.status.capitalize %></li>
-        </ul>
-
-        <div class="btn-group">
-          <%= button_to "Enabled #{merchant.id}", "/admin/merchants/#{merchant.id}", method: :patch, local: true, class: "btn btn-secondary btn-sm ", params:{status: "enabled"} %>
-          <%= button_to "Disabled #{merchant.id}", "/admin/merchants/#{merchant.id}", method: :patch, local: true, class: "btn btn-secondary btn-sm ", params: {status: "disabled"} %>
-        </div><br>
-      <% end %>
-    <% end %>
+<div id="table-wrapper" style="float:left">
+  <div id="table-scroll">
+    <table class="table table-striped table-borderless">
+      <thead>
+        <tr>
+          <th scope="col">
+            <span class="text white_glow"><h2>Enabled Merchants</h2></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <% @merchants.distinct.each do |merchant|  %>
+              <div id="en_merchant-<%=merchant.id%>">
+                <% if merchant.status == "enabled" %>
+                  <td><%=link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}", style: "color:white"%></td>
+                  <td><%= button_to "Disabled", "/admin/merchants/#{merchant.id}", method: :patch, local: true, class: "btn btn-secondary btn-sm ", params: {status: "disabled"}%>
+                  </td>
+                <% end %>
+              </div>
+            <% end %>
+          </tr>
+      </tbody>
+    </table>
   </div>
 </div>

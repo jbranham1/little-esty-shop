@@ -4,7 +4,7 @@
     <title>LittleEtsyShop</title>
       <%= csrf_meta_tags %>
       <%= csp_meta_tag %>
-      <%= stylesheet_link_tag    'application', media: 'all' %>
+      <%= stylesheet_link_tag 'application', media: 'all' %>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
       <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -13,9 +13,6 @@
     <center>Little Esty Shop</center>
   </h1>
   <body class="bg-secondary">
-    <% flash.each do |type, message| %>
-      <p><%= message %></p>
-    <% end %>
     <%= yield %>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

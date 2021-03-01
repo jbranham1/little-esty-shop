@@ -3,31 +3,28 @@
 <div class="nav justify-content-begin" style="padding-bottom:15px">
   <%= button_to "Create Merchant", "/admin/merchants/new", method: :get, local: true, class: "btn btn-outline-light" %>
 </div>
+<center><%= render "shared/flash" %></center>
 <h1 class="alert alert-info"><center>Merchants Dashboard</center> </h1>
 
-
-<table class="table">
-  <tr>
-    <th><%= render partial: "enabled" %></th>
-    <th><%= render partial: "disabled" %></th>
-  </tr>
-</table>
-<h1><center>Top Merchants</center></h1>
-<% @top_merchants.each do |merc| %>
-  <table class="table center table-borderless table-striped">
+<h2 class="text white_glow"><center>Top Merchants</center></h2>
+  <table class="table center table-striped table-borderless">
     <thead style="text-align:center">
       <tr>
-        <th scope="col">Merchant Name:</th>
-        <th scope="col">Top selling date:</th>
-        <th scope="col">Total Revenue:</th>
+        <th scope="col" class="white_glow">Merchant Name:</th>
+        <th scope="col" class="white_glow">Top selling date:</th>
+        <th scope="col" class="white_glow">Total Revenue:</th>
       </tr>
     </thead>
     <tbody>
-      <tr style="text-align:center">
-        <td id="merchant-<%= merc.id %>"><%=link_to "#{merc.name}", "/admin/merchants/#{merc.id}", style:"color:white"%></td>
-        <td><%= merc.invoice_items.top_sales_date.strftime("%A, %B %d, %Y") %></td>
-        <td>$<%= number_with_precision(merc.total_revenue, :precision => 2, :delimiter => ',')%><td>
-      </tr>
+      <% @merchants.top_5_by_revenue.each do |merc| %>
+        <tr style="text-align:center" class="border_bottom">
+          <td id="merchant-<%= merc.id %>"><%=link_to "#{merc.name}", "/admin/merchants/#{merc.id}", style:"color:white"%></td>
+          <td><%= merc.invoice_items.top_sales_date.strftime("%A, %B %d, %Y") %></td>
+          <td>$<%= number_with_precision(merc.total_revenue, :precision => 2, :delimiter => ',')%><td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
-<% end %>
+
+        <%= render partial: "enabled" %>
+        <%= render partial: "disabled" %>

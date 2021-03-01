@@ -24,7 +24,7 @@ RSpec.describe 'Admin Invoices Show Page' do
         visit admin_invoice_path(@invoice)
 
         within ".invoice-information" do
-          expect(page).to have_content("Total Revenue: #{@invoice.total_revenue}")
+          expect(page).to have_content("Total Revenue: $1,016,156.00")
         end
       end
       it "Then I see the customer full name and address related to that invoice" do

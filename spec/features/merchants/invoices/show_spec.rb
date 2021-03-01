@@ -25,7 +25,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
         visit merchant_invoice_path(@merchant.id, @invoice.id)
 
         within ".invoice-information" do
-          expect(page).to have_content("Total Revenue: #{@invoice.total_revenue}")
+          expect(page).to have_content("Total Revenue: $1,281,794.00")
         end
       end
       it "Then I see all of the customer information related to that merchant" do

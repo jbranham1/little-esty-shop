@@ -1,22 +1,17 @@
 class ItemsController < ApplicationController
+  before_action :find_merchant
+  before_action :find_item, except: [:index, :new, :create]
+
   def index
-    @merchant = Merchant.find(params[:merchant_id])
   end
 
   def show
-    @merchant = Merchant.find(params[:merchant_id])
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @merchant = Merchant.find(params[:merchant_id])
-    @item = Item.find(params[:id])
   end
 
   def update
-    @merchant = Merchant.find(params[:merchant_id])
-    @item = Item.find(params[:id])
-
     if @item.update(item_params)
       flash[:notice] = "#{@item.name}'s successfully updated"
       render :show
@@ -27,12 +22,10 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @merchant = Merchant.find(params[:merchant_id])
-    @item = @merchant.items.new(item_params)
+    @item = Item.new
   end
 
   def create
-    @merchant = Merchant.find(params[:merchant_id])
     @item = @merchant.items.new(item_params)
 
     if @item.save
@@ -44,6 +37,14 @@ class ItemsController < ApplicationController
   end
 
   private
+
+  def find_merchant
+    @merchant = Merchant.find(params[:merchant_id])
+  end
+
+  def find_item
+    @item = Item.find(params[:id])
+  end
 
   def item_params
     params.permit(:name, :description, :unit_price)

@@ -1,5 +1,5 @@
 <footer>
-  <h3 class="white_glow"><center><%= @repo_name.capitalize %> Repo API Stats</center></h3>
+  <h3 class="white_glow"><center><%= @repo.repo_name.capitalize %> Repo API Stats</center></h3>
   <table class="table table-striped center table-borderless">
     <thead>
       <tr>
@@ -8,7 +8,7 @@
       </tr>
   </thead>
   <tbody>
-    <% @repo_commits.each do |name, count| %>
+    <% @repo.repo_commits.each do |name, count| %>
       <tr>
         <td><%= name %></td>
         <td><%= count %></td>
@@ -16,5 +16,5 @@
     <% end %>
   </tbody>
   </table>
-  <%= Closed Pull Requests: @repo_prs %>
+  Closed Pull Requests: <%= @repo.repo_pull_requests %>
 </footer>

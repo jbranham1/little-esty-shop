@@ -4,25 +4,31 @@
 
 <h1 class="alert alert-info"><center>Invoice #<%= @invoice.id %></center> </h1>
 <section class= "invoice-status">
-  Invoice Status:
+  <h3 class="white_glow">Invoice Status:</h3>
   <%= form_with url: "/admin/invoices/#{@invoice.id}", method: :patch, model: @invoice, local: true do |f| %>
     <%= f.select(:status, [:in_progress, :cancelled, :completed], value: :status) %>
     <%= f.submit "Update Invoice" %>
   <% end %>
 </section>
 
-<%= render partial: "/shared/invoice_information", locals: {invoice: @invoice, status: false} %><br>
-<%= render partial: "/shared/invoice_customer", locals: {customer: @invoice.customer} %><br>
+<table class="table">
+  <tr>
+    <th><%= render partial: "/shared/invoice_information", locals: {invoice: @invoice, status: false} %></th>
+    <th><%= render partial: "/shared/invoice_customer", locals: {customer: @invoice.customer} %></th>
+  </tr>
+</table>
+
+
 
 <section class="invoice-items">
-  <h3>Items on this Invoice:</h3>
+  <h3 class="white_glow"><center>Items on this Invoice:</center></h3>
   <table class="table table-striped center table-borderless">
     <thead style="text-align:center">
       <tr>
-        <th scope="col">Item Name:</th>
-        <th scope="col">Quantity:</th>
-        <th scope="col">Unit Price:</th>
-        <th scope="col">Status:</th>
+        <th scope="col" class="white_glow">Item Name:</th>
+        <th scope="col" class="white_glow">Quantity:</th>
+        <th scope="col" class="white_glow">Unit Price:</th>
+        <th scope="col" class="white_glow">Status:</th>
       </tr>
     </thead>
     <% if @invoice.invoice_items %>

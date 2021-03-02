@@ -1,12 +1,20 @@
-
 <footer>
-  <ul>
-    GitHub Repo Name: <%= @repo_name %><br>
-    GitHub Usernames:
+  <h3 class="white_glow"><center><%= @repo_name.capitalize %> Repo API Stats</center></h3>
+  <table class="table table-striped center table-borderless">
+    <thead>
+      <tr>
+        <th class="white_glow">Usernames:</th>
+        <th class="white_glow">Count:</th>
+      </tr>
+  </thead>
+  <tbody>
     <% @repo_commits.each do |name, count| %>
-      <li><%= name %> - <%= count %></li>
+      <tr>
+        <td><%= name %></td>
+        <td><%= count %></td>
+      </tr>
     <% end %>
-  </ul>
-
+  </tbody>
+  </table>
   <%= Closed Pull Requests: @repo_prs %>
 </footer>

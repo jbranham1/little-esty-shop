@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Merchant Dashboard' do
   before :each do
     @merchant = Merchant.first
-    @customers = Customer.top_customer_by_merchant(@merchant.id)
+    @customers = Customer.top_5_customers_by_merchant(@merchant.id)
   end
   describe "As a merchant," do
     describe "When I visit my merchant dashboard (/merchant/merchant_id/dashboard)" do

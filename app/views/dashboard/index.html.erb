@@ -17,8 +17,8 @@
     </thead>
     <tbody>
       <section>
-        <% if @top_customers_for_merchant %>
-        <% @top_customers_for_merchant.each do |customer| %>
+        <% if @top_5_customers_for_merchant %>
+        <% @top_5_customers_for_merchant.each do |customer| %>
         <tr style="text-align:center">
           <td><%= customer.last_name %></td>
           <td><%= customer.first_name %></td>

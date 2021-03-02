@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @merchant.top_5_items.each do |item| %>
+        <% @merchant.items.top_5_items.each do |item| %>
           <tr style="text-align:center" class="border_bottom">
             <div id="item-<%= item.id %>">
               <td><%= link_to item.name, merchant_item_path(@merchant, item), style:"color:white"%></td>

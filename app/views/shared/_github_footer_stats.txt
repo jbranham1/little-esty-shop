@@ -1,0 +1,12 @@
+
+<footer>
+  <ul>
+    GitHub Repo Name: <%= @repo_name %><br>
+    GitHub Usernames:
+    <% @repo_commits.each do |name, count| %>
+      <li><%= name %> - <%= count %></li>
+    <% end %>
+  </ul>
+
+  <%= Closed Pull Requests: @repo_prs %>
+</footer>

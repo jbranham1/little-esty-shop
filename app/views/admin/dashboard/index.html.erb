@@ -10,7 +10,7 @@
               <th scope="col"><span class="text white_glow"><h2>Incomplete Invoices:</h2></span></th>
             </tr>
           </thead>
-          <% @invoices.incomplete_invoices.each do |invoice| %>
+          <% @facade.invoices.incomplete_invoices.each do |invoice| %>
             <tbody>
               <tr>
               <td><%= link_to "Invoice #{invoice.id} | #{invoice.created_at.strftime("%A, %B %d, %Y")}", "/admin/invoices/#{invoice.id}", id: "invoice-#{invoice.id}", style: "color:white"%></td>
@@ -32,7 +32,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @customers.top_5_customers_with_success.each do |cust| %>
+        <% @facade.customers.top_5_customers_with_success.each do |cust| %>
           <tr style="text-align:center">
             <td><%= cust.first_name %></td>
             <td><%= cust.last_name %></td>

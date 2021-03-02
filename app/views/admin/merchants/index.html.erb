@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @merchants.top_5_by_revenue.each do |merc| %>
+      <% @facade.merchants.top_5_by_revenue.each do |merc| %>
         <tr style="text-align:center" class="border_bottom">
           <td id="merchant-<%= merc.id %>"><%=link_to "#{merc.name}", "/admin/merchants/#{merc.id}", style:"color:white"%></td>
           <td><%= merc.invoice_items.top_sales_date.strftime("%A, %B %d, %Y") %></td>

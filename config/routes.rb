@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   end
 
   resources :customers, :invoice_items, :transactions
+  get '/', to: 'welcome#index'
 end

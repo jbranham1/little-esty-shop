@@ -3,12 +3,12 @@ class GitRepository
                 :repo_commits,
                 :repo_pull_requests
 
-  def initialize ()
+  def initialize
     @github_service = GithubService.new
-    @repo_name = repo_name
-    @repo_usernames = repo_usernames
-    @repo_commits = repo_commits
-    @repo_pull_requests = repo_pull_requests
+    @repo_name ||= repo_name
+    @repo_usernames ||= repo_usernames
+    @repo_commits ||= repo_commits
+    @repo_pull_requests ||= repo_pull_requests
   end
 
   def repo_name

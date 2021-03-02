@@ -21,4 +21,8 @@ class Merchant < ApplicationRecord
   def distinct_invoices
     invoices.distinct
   end
+
+  def top_5_items
+    items.top_5_items
+  end
 end

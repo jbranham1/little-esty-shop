@@ -2,8 +2,7 @@ class Admin::MerchantsController < ApplicationController
   before_action :find_merchant, except: [:index, :new, :create]
 
   def index
-    @merchants = Merchant.all
-    @top_merchants = Merchant.top_5_by_revenue
+    @facade = AdminMerchantsFacade.new
   end
 
   def show

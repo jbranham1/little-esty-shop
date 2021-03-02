@@ -7,7 +7,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @merchants.disabled.each do |merchant|  %>
+        <% @facade.merchants.disabled.each do |merchant|  %>
           <tr>
               <td><%=link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}", style: "color:white"%></td>
               <td>

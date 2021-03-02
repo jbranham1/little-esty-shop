@@ -1,6 +1,6 @@
 <header>
-  <h1 class="alert alert-dark" style="width:500px"><center><%= @merchant.name %></center></h1>
-  <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
+  <h1 class="alert alert-dark" style="width:500px"><center><%= @facade.merchant.name %></center></h1>
+  <%= render partial: "/shared/merc_links", locals: {merchant: @facade.merchant} %><br>
 </header>
 <center> <%= render "shared/flash" %> </center>
 <h1 class="alert alert-info"><center>Main</center> </h1>
@@ -17,8 +17,8 @@
     </thead>
     <tbody>
       <section>
-        <% if @top_5_customers_for_merchant %>
-        <% @top_5_customers_for_merchant.each do |customer| %>
+        <% if @facade.top_5_customers_for_merchant %>
+        <% @facade.top_5_customers_for_merchant.each do |customer| %>
         <tr style="text-align:center">
           <td><%= customer.last_name %></td>
           <td><%= customer.first_name %></td>
@@ -51,12 +51,12 @@
           </thead>
           <tbody>
             <section class="items-to-ship">
-              <% if @items_ready_to_ship %>
-                <% @items_ready_to_ship.each do |item| %>
+              <% if @facade.items_ready_to_ship %>
+                <% @facade.items_ready_to_ship.each do |item| %>
                   <tr class="item-<%= item.inv_item_id %>">
                     <td><%= item.name %></td>
                     <td><%= item.invoice_date.strftime('%A, %B %d, %Y')%></td>
-                    <td><%= link_to "##{item.inv_id}", merchant_invoice_path(@merchant, item.inv_id), style: "color:white"%></td>
+                    <td><%= link_to "##{item.inv_id}", merchant_invoice_path(@facade.merchant, item.inv_id), style: "color:white"%></td>
                   </tr>
                 <% end %>
               <% end %>

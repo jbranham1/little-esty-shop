@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   # before_action :repo_name,
-                # :repo_usernames,
-                # :repo_commits,
-                # :repo_pull_requests
+  #               :repo_usernames,
+  #               :repo_commits,
+  #               :repo_pull_requests
 
   def repo_name
     github_service = GithubService.new

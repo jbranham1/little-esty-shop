@@ -24,7 +24,7 @@
       <tr >
         <td><%= invoice_item.item.name %></td>
         <td><%= invoice_item.quantity %></td>
-        <td><%= invoice_item.unit_price_dollar %></td>
+        <td><%= number_to_currency(invoice_item.unit_price, precision: 2) %></td>
         <td>
           <%= form_with url: "/invoice_items/#{invoice_item.id}", method: :patch, model: invoice_item,local: true, locals: {merchant_id: @merchant.id} do |f| %>
             <%= f.hidden_field :invoice_id, value: @invoice.id %>

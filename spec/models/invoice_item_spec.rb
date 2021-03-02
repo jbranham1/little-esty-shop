@@ -42,13 +42,6 @@ RSpec.describe InvoiceItem, type: :model do
   end
 
   describe 'instance methods' do
-    describe '#unit_price_dollar' do
-      it "changes unit price to dollar format" do
-        @invoice_item84 = InvoiceItem.find(84)
-
-        expect(@invoice_item84.unit_price_dollar).to eq("$#{@invoice_item84.unit_price}0")
-      end
-    end
     describe '#revenue' do
       it "gets revenue of " do
         invoice_item = create(:invoice_item, unit_price: 2.5, quantity: 3, id: 1000)

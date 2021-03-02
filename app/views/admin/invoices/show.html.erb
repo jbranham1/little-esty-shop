@@ -31,7 +31,7 @@
         <tr >
           <td><%= invoice_item.item.name %></td>
           <td><%= invoice_item.quantity %></td>
-          <td><%= invoice_item.unit_price_dollar %></td>
+          <td><%= number_to_currency(invoice_item.unit_price, precision: 2) %></td>
           <td><%= invoice_item.status.titleize %></td>
         </tr>
       </tbody>

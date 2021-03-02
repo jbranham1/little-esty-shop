@@ -27,10 +27,10 @@ RSpec.describe Customer, type: :model do
       end
     end
 
-    describe '::top_customer_by_merchant' do
+    describe '::top_5_customers_for_merchant' do
       it "gets the top 5 customers with successful transactions for a specific merchant" do
         merchant = Merchant.all.first
-        results = Customer.top_customer_by_merchant(merchant.id)
+        results = Customer.top_5_customers_by_merchant(merchant.id)
 
         expect(results.first.first_name).to eq("Paul")
         expect(results.first.transaction_count).to eq(3)

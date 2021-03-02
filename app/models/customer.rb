@@ -19,7 +19,7 @@ class Customer < ApplicationRecord
     .limit(5)
   end
 
-  def self.top_customer_by_merchant(merchant_id)
+  def self.top_5_customers_by_merchant(merchant_id)
     joins(:transactions)
     .select('customers.*, count(transactions.id) as transaction_count')
     .where(transactions: {result: :success})

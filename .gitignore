@@ -27,3 +27,4 @@
 /config/master.key
 
 coverage/
+config/local_env.yml

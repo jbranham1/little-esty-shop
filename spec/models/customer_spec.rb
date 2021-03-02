@@ -21,7 +21,6 @@ RSpec.describe Customer, type: :model do
 
         expect(results.first.first_name).to eq("Leo")
         expect(results.first.transaction_count).to eq(5)
-        expect(results.last.last_name).to eq("Zulauf")
         expect(results.last.transaction_count).to eq(4)
         expect(results.include?("Mariah")).to eq(false)
         expect(results.pluck(:first_name).count).to eq(5)
@@ -35,7 +34,6 @@ RSpec.describe Customer, type: :model do
 
         expect(results.first.first_name).to eq("Paul")
         expect(results.first.transaction_count).to eq(3)
-        expect(results.last.last_name).to eq("Zulauf")
         expect(results.last.transaction_count).to eq(2)
         expect(results.include?("Mariah")).to eq(false)
         expect(results.pluck(:first_name).count).to eq(5)

@@ -3,23 +3,19 @@
     <table class="table table-striped table-borderless">
       <thead>
         <tr>
-          <th scope="col">
-            <span class="text white_glow"><h2>Enabled Merchants</h2></span>
-          </th>
+          <th scope="col"><span class="text white_glow"><h2>Enabled Merchants</h2></span></th>
         </tr>
       </thead>
       <tbody>
+        <% @merchants.enabled.each do |merchant|  %>
           <tr>
-            <% @merchants.distinct.each do |merchant|  %>
-              <div id="en_merchant-<%=merchant.id%>">
-                <% if merchant.status == "enabled" %>
-                  <td><%=link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}", style: "color:white"%></td>
-                  <td><%= button_to "Disabled", "/admin/merchants/#{merchant.id}", method: :patch, local: true, class: "btn btn-secondary btn-sm ", params: {status: "disabled"}%>
-                  </td>
-                <% end %>
-              </div>
-            <% end %>
+            <div id="en_merchant-<%=merchant.id%>">
+              <td><%=link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}", style: "color:white"%></td>
+              <td><%= button_to "Disabled", "/admin/merchants/#{merchant.id}", method: :patch, local: true, class: "btn btn-secondary btn-sm ", params: {status: "disabled"}%>
+              </td>
+            </div>
           </tr>
+        <% end %>
       </tbody>
     </table>
   </div>

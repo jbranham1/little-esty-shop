@@ -1,4 +1,5 @@
 class Admin::MerchantsController < ApplicationController
+  before_action :find_merchant, except: [:index, :new, :create]
 
   def index
     @merchants = Merchant.all
@@ -6,41 +7,47 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def show
-    @merchant = Merchant.find(params[:id])
+  end
+
+  def new
+    @merchant = Merchant.new
   end
 
   def create
-    merchant = Merchant.create(merchants_params)
-    if merchant.save
-      redirect_to "/admin/merchants/#{merchant.id}"
+    @merchant = Merchant.new(merchants_params)
+
+    if @merchant.save
+      redirect_to "/admin/merchants/#{@merchant.id}"
     else
-      flash[:error] = "Merchant was not saved!"
+      flash[:errors] = @merchant.errors.full_messages
       render :new
     end
   end
 
+  def edit
+  end
+
   def update
-    @merchant = Merchant.find(params[:id])
     if params[:status]
       @merchant.update(merchants_params)
-      flash[:success] = "Merchant successfully updated"
+      flash[:success] = "#{@merchant.name} successfully updated"
       redirect_to "/admin/merchants"
     elsif @merchant.update(merchants_params)
-      flash[:success] = "Merchant successfully updated"
+      flash[:success] = "#{@merchant.name} successfully updated"
       redirect_to "/admin/merchants/#{@merchant.id}"
     else
-      flash[:notice] = @merchant.errors.full_messages
+      flash[:errors] = @merchant.errors.full_messages
       render :edit
     end
   end
 
-  def edit
-    @merchant = Merchant.find(params[:id])
-  end
-end
-
-
   private
+
   def merchants_params
     params.permit(:name, :status)
   end
+
+  def find_merchant
+    @merchant = Merchant.find(params[:id])
+  end
+end

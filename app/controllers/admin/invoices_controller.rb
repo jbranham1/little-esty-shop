@@ -1,15 +1,15 @@
 class Admin::InvoicesController < ApplicationController
+  before_action :find_invoice, except: [:index]
+
   def index
     @invoices = Invoice.all
   end
 
   def show
-    @invoice = Invoice.find(params[:id])
   end
 
   def update
-    invoice = Invoice.find(params[:id])
-    invoice.update(invoice_params)
+    @invoice.update(invoice_params)
     flash[:success] = "Invoice successfully updated"
     redirect_to "/admin/invoices/#{params[:id]}"
   end
@@ -17,6 +17,10 @@ class Admin::InvoicesController < ApplicationController
   private
 
   def invoice_params
-    params[:invoice].permit([:status])
+    params.require(:invoice).permit(:status)
+  end
+
+  def find_invoice
+    @invoice = Invoice.find(params[:id])
   end
 end

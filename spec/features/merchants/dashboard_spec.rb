@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Merchant Dashboard' do
   before :each do
     @merchant = Merchant.first
+    @customers = Customer.top_customer_by_merchant(@merchant.id)
   end
   describe "As a merchant," do
     describe "When I visit my merchant dashboard (/merchant/merchant_id/dashboard)" do
@@ -28,17 +29,16 @@ RSpec.describe 'Merchant Dashboard' do
       end
       it "I see my top 5 customer names with largest number of successful transactions" do
         visit merchant_dashboard_index_path(@merchant.id)
-        customer1 = Customer.find(104)
-        customer2 = Customer.find(156)
-        customer3 = Customer.find(7)
+        customer1 = Customer.find(108)
 
         within '.favorite-customers' do
           expect(page).to have_content('Favorite Customers')
-          expect(page).to have_content('Anya')
-          expect(page).to have_content('Zulauf')
-          expect(customer1.first_name).to appear_before(customer3.first_name)
-          expect(customer3.first_name).to appear_before(customer2.first_name)
-          expect(page).to_not have_content('Markus Grady')
+          expect(page).to have_content(@customers.first.first_name)
+          expect(page).to have_content(@customers.last.first_name)
+          expect(@customers.second.last_name).to appear_before(@customers.third.last_name)
+          expect(@customers.third.last_name).to appear_before(@customers.fourth.last_name)
+          expect(@customers.fourth.last_name).to appear_before(@customers.fifth.last_name)
+          expect(page).to_not have_content(customer1.first_name)
         end
       end
       describe "Then I see a section for 'Items Ready to Ship'" do

@@ -1,7 +1,9 @@
 class GithubService
 
   def get_data(arg)
-    response = Faraday.get("https://api.github.com/repos/Gvieve/little-esty-shop#{arg}")
+    response = Faraday.get("https://api.github.com/repos/Gvieve/little-esty-shop#{arg}") do |req|
+      req.headers['Authorization'] = "token #{ENV['GITHUB_TOKEN']}"
+    end
     data = response.body
     json = JSON.parse(data, symbolize_names: true)
   end

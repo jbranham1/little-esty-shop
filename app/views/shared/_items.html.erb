@@ -1,0 +1,38 @@
+<section class="all-items">
+  <div id="table-wrapper">
+    <div id="table-scroll">
+      <table class="table table-striped table-borderless">
+        <thead >
+          <tr>
+            <th scope="col"><span class="text white_glow" style="position:absolute"><h2>Enabled Items:</h2></span></th>
+            <th scope="col"><span class="text white_glow" style="position:absolute"><h2>Disabled Items:</h2></span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <section class="enabled-items">
+                <% @merchant.items.enabled.each do |item| %>
+                  <div id="en_item-<%= item.id %>">
+                    <%= link_to item.name, merchant_item_path(@merchant, item), style: "color:white"%>
+                    <%= button_to 'Disable', merchant_items_status_path(@merchant.id, item.id, {item: {status: "disabled"}}), method: :patch %>
+                  </div>
+                <% end %>
+              </section>
+            </td>
+            <td>
+              <section class="disabled-items">
+                <% @merchant.items.disabled.each do |item| %>
+                  <div id="item-<%= item.id %>">
+                    <%= link_to item.name, merchant_item_path(@merchant, item), style: "color:white" %>
+                    <%= button_to 'Enable', merchant_items_status_path(@merchant.id, item.id, {item: {status: "enabled"}}), method: :patch %>
+                  </div>
+                <% end %>
+              </section>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

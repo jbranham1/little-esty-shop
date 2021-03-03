@@ -110,13 +110,13 @@ $ rails db:migrate
 ```
 3. Seed development database
 
-  * This will load all csv files located inside the `db/data` directory.
+    * This will load all csv files located inside the `db/data` directory.
 
   ```sh
   $ rails csv_load:all
   ```
 
-  * To load a single table, where <table> is merchants or items, etc:
+    * To load a single table, where <table> is merchants or items, etc:
 
   ```sh
   $ rails csv_load:<table>
@@ -124,7 +124,7 @@ $ rails db:migrate
 
 4. Seed test database
 
-  * This will load all csv fixtures files located inside the `spec/fixtures/files` directory. You will need this test data to run the existing test suite.
+    * This will load all csv fixtures files located inside the `spec/fixtures/files` directory. You will need this test data to run the existing test suite.
 
   ```sh
   $ rails db:seed RAILS_ENV=test

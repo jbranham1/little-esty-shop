@@ -116,7 +116,7 @@ $ rails db:migrate
   $ rails csv_load:all
   ```
 
-    * To load a single table, where <table> is merchants or items, etc:
+    * To load a single table, where <table> is merchants or items, etc: 
 
   ```sh
   $ rails csv_load:<table>

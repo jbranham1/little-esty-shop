@@ -5,7 +5,7 @@ class MerchantDashboardFacade
 
   def initialize(merchant_id)
     @merchant = Merchant.find(merchant_id)
-    @top_5_customers_for_merchant = Customer.top_5_customers_by_merchant(merchant_id)
+    @top_5_customers_for_merchant = @merchant.top_5_customers_by_transactions
     @items_ready_to_ship = Item.ready_to_ship_by_merchant(merchant_id)
   end
 end

@@ -35,6 +35,11 @@ RSpec.describe 'Admin Merchants Index Page' do
         end
       end
 
+      it "has top_sales_date for each merchant" do
+        merchant = Merchant.first
+        expect(merchant.invoice_items.top_sales_date).to eq("Sat, 10 Mar 2012 16:54:33 UTC +00:00")
+      end
+
       it "has ability to disable merchant" do
         merchant = Merchant.find(14)
         within "#en_merchant-#{merchant.id}" do

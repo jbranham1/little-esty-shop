@@ -34,7 +34,8 @@ RSpec.describe Merchant, type: :model do
   describe 'class methods' do
     describe '::top_5_by_revenue' do
       it 'returns top 5 merchants based on total revenue' do
-        # Need test for this class method
+        expect(Merchant.top_5_by_revenue.fifth).to eq(Merchant.top_5_by_revenue.last)
+        expect(Merchant.top_5_by_revenue.first.total_revenue.to_f).to eq(29349736.0)
       end
     end
   end

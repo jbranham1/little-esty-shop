@@ -109,25 +109,30 @@ $ rails db:create
 $ rails db:migrate
 ```
 3. Seed development database
-```sh
-$ rails csv_load:all
-```
-This will load all csv files located inside the `db/data` directory.
 
-To load a single table, where <table> is merchants or items, etc:
-```sh
-$ rails csv_load:<table>
-```
+  * This will load all csv files located inside the `db/data` directory.
+
+  ```sh
+  $ rails csv_load:all
+  ```
+
+  * To load a single table, where <table> is merchants or items, etc:
+
+  ```sh
+  $ rails csv_load:<table>
+  ```
 
 4. Seed test database
-```sh
-$ rails db:seed RAILS_ENV=test
-```
-This will load all csv fixtures files located inside the `spec/fixtures/files` directory. You will need this test data to run the existing test suite.
+
+  * This will load all csv fixtures files located inside the `spec/fixtures/files` directory. You will need this test data to run the existing test suite.
+
+  ```sh
+  $ rails db:seed RAILS_ENV=test
+  ```
 
 5. Nagivate to `http://localhost:3000/`
 
-The welcome page currently has no links because future iterations would include the ability to authenticate users. The idea is the links on the welcome page would be dynamic based on the users role.
+  The welcome page currently has no links because future iterations would include the ability to authenticate users. The idea is the links on the welcome page would be dynamic based on the users role.
 
 * __Merchant Dashboard__
 

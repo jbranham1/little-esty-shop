@@ -1,22 +1,38 @@
-<div id="table-wrapper" style="float:left">
-  <div id="table-scroll">
-    <table class="table table-striped table-borderless">
-      <thead>
-        <tr>
-          <th scope="col"><span class="text white_glow"><h2>Enabled Merchants</h2></span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @facade.merchants.enabled.each do |merchant|  %>
+<section class="all-items">
+  <div id="table-wrapper">
+    <div id="table-scroll">
+      <table class="table table-striped table-borderless">
+        <thead >
           <tr>
-            <div id="en_merchant-<%=merchant.id%>">
-              <td><%=link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}", style: "color:white"%></td>
-              <td><%= button_to "Disabled", "/admin/merchants/#{merchant.id}", method: :patch, local: true, class: "btn btn-secondary btn-sm ", params: {status: "disabled"}%>
-              </td>
-            </div>
+            <th scope="col"><span class="text white_glow" style="position:absolute"><h2>Enabled Merchants:</h2></span></th>
+            <th scope="col"><span class="text white_glow" style="position:absolute"><h2>Disabled Merchants</h2></span></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <section class="enabled-items">
+                <% @facade.merchants.enabled.each do |merchant|  %>
+                  <div id="en_merchant-<%=merchant.id%>">
+                    <%=link_to "#{merchant.name}", admin_merchant_path(merchant), style: "color:white"%>
+                    <%= button_to "Disabled", admin_merchant_path(merchant), method: :patch, local: true, params: {status: "disabled"}%>
+                  </div>
+                <% end %>
+              </section>
+            </td>
+            <td>
+              <section class="disabled-items">
+                <% @facade.merchants.disabled.each do |merchant|  %>
+                  <div id="dis_merchant-<%=merchant.id%>">
+                    <%=link_to "#{merchant.name}", admin_merchant_path(merchant), style: "color:white"%>
+                    <%= button_to "Enabled", admin_merchant_path(merchant), method: :patch, local: true, params:{status: "enabled"} %>
+                  </div>
+                <% end %>
+              </section>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
+</section>

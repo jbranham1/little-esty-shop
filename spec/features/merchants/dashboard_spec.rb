@@ -27,6 +27,13 @@ RSpec.describe 'Merchant Dashboard' do
         click_on ('My Invoices')
         expect(current_path).to eq("/merchant/#{@merchant.id}/invoices")
       end
+      it "And I see a link to view all my discounts(/merchant/merchant_id/discounts)" do
+        visit merchant_dashboard_index_path(@merchant.id)
+
+        expect(page).to have_button('My Bulk Discounts')
+        click_on ('My Bulk Discounts')
+        expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts")
+      end
       it "I see my top 5 customer names with largest number of successful transactions" do
         visit merchant_dashboard_index_path(@merchant.id)
         customer1 = Customer.find(108)

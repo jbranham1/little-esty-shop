@@ -22,14 +22,16 @@ class BulkDiscountsController < ApplicationController
   end
 
   def edit
+    @discount = BulkDiscount.find(params[:id])
   end
 
   def update
-    if discount.update(discount_params)
-      flash[:notice] = "#{discount.name}'s successfully updated"
+    @discount = BulkDiscount.find(params[:id])
+    if @discount.update(discount_params)
+      flash[:notice] = "Bulk Discount #{@discount.id} successfully updated"
       render :show
     else
-      flash[:errors] = "Bulk Discount not updated: #{discount.errors.full_messages.to_sentence}."
+      flash[:errors] = "Bulk Discount not updated: #{@discount.errors.full_messages.to_sentence}."
       render :edit
     end
   end

@@ -26,6 +26,14 @@ RSpec.describe 'Merchant Bulk Discounts Index Page' do
           end
         end
       end
+      describe "I see a section with a header of 'Upcoming Holidays'" do
+        it "In this section the name and date of the next 3 upcoming US holidays are listed." do
+          visit merchant_bulk_discounts_path(@merchant.id)
+          within ".upcoming-holidays" do
+            expect(page).to have_content("Upcoming Holidays")
+          end
+        end
+      end
     end
   end
 end

@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'Merchant Bulk Discounts Show Page' do
   before :each do
     @merchant = Merchant.first
-    @invoices = @merchant.invoices
     @discount1 = create(:bulk_discount, merchant_id: 1)
     @discount2 = create(:bulk_discount, merchant_id: 1)
     @discount3 = create(:bulk_discount, merchant_id: 2)

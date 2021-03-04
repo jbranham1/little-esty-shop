@@ -1,6 +1,7 @@
 class BulkDiscountsController < ApplicationController
   before_action :find_merchant
   def index
+    @facade = BulkDiscountIndexFacade.new(params[:merchant_id])
   end
 
   def show

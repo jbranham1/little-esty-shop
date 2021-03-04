@@ -1,0 +1,17 @@
+<header>
+  <h1 class="alert alert-dark" style="width:500px"><center><%= @merchant.name %></center></h1>
+  <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
+</header>
+<%= render "shared/flash" %>
+
+<h3 class="alert alert-info"><center> My Bulk Discounts</center></h3>
+
+<section class="merchant-discounts">
+  <% @merchant.bulk_discounts.each do |discount| %>
+    <div class="discount-<%= discount.id %>">
+      <h2>Bulk Discount ID: <%= link_to discount.id, merchant_bulk_discount_path(@merchant, discount), style: "color:white"%></h2>
+      <p>Percentage Discount: <%= discount.percentage_discount %></p>
+      <p>Quantity Threshold: <%= discount.quantity_threshold %></p>
+      </div>
+  <% end %>
+</section>

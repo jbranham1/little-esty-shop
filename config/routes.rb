@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :items, except: [:destroy]
     resources :items_status, controller: "merchant_items", only: [:update]
     resources :dashboard, only: [:index]
+    resources :bulk_discounts
   end
 
   resources :invoice_items, only: [:update]

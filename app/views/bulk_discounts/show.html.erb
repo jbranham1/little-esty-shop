@@ -1,0 +1,9 @@
+<header>
+  <h1 class="alert alert-dark" style="width:500px"><center><%= @merchant.name %></center></h1>
+  <%= render partial: "/shared/merc_links", locals: {merchant: @merchant} %><br>
+</header>
+<%= render "shared/flash" %>
+
+<h1 class="alert alert-info"><center>Bulk Discount ID: <%= @discount.id %></center> </h1>
+<p>Percentage Discount: <%= @discount.percentage_discount %></p>
+<p>Quantity Threshold: <%= @discount.quantity_threshold %></p>

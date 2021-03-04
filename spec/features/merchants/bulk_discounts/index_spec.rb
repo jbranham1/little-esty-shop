@@ -34,6 +34,20 @@ RSpec.describe 'Merchant Bulk Discounts Index Page' do
           end
         end
       end
+
+      describe "Then I see a link to create a new discount" do
+        describe "When I click this link" do
+          it "Then I am taken to a new page where I see a form to add a new bulk discount" do
+            visit merchant_bulk_discounts_path(@merchant.id)
+            within ".merchant-discounts" do
+              expect(page).to have_link("Create New Bulk Discount")
+              click_link("Create New Bulk Discount")
+
+              expect(current_path).to eq (new_merchant_bulk_discount_path(@merchant))
+            end
+          end
+        end
+      end
     end
   end
 end

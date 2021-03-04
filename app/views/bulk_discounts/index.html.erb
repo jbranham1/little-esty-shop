@@ -7,10 +7,12 @@
 <h3 class="alert alert-info"><center> My Bulk Discounts</center></h3>
 
 <section class="merchant-discounts">
-  <%= link_to 'Create New Bulk Discount', new_merchant_bulk_discount_path(@facade.merchant), style: "color:white"%>
+  <h3><%= link_to 'Create New Bulk Discount', new_merchant_bulk_discount_path(@facade.merchant), style: "color:white"%></h3>
   <% @facade.merchant.bulk_discounts.each do |discount| %>
     <div class="discount-<%= discount.id %>">
-      <h2>Bulk Discount ID: <%= link_to discount.id, merchant_bulk_discount_path(@facade.merchant, discount), style: "color:white"%></h2>
+      <h3>Bulk Discount ID:
+        <%= link_to discount.id, merchant_bulk_discount_path(@facade.merchant, discount), style: "color:white"%></h3>
+        <%= button_to 'Delete', merchant_bulk_discount_path(@facade.merchant, discount), method: :delete%>
       <p>Percentage Discount: <%= discount.percentage_discount %></p>
       <p>Quantity Threshold: <%= discount.quantity_threshold %></p>
       </div>

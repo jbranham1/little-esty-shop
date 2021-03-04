@@ -1,16 +1,18 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
   namespace :admin do
-    resources :merchants, :invoices
+    resources :merchants, except: [:destroy]
+    resources :invoices, only: [:index, :update, :show]
     get '', to: 'dashboard#index', as: '/'
   end
 
   resources :merchant do
-    resources :invoices, :items
+    resources :invoices, only: [:index, :show]
+    resources :items, except: [:destroy]
     resources :items_status, controller: "merchant_items", only: [:update]
     resources :dashboard, only: [:index]
   end
 
-  resources :customers, :invoice_items, :transactions
+  resources :invoice_items, only: [:update]
   get '/', to: 'welcome#index'
 end

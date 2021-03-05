@@ -6,5 +6,6 @@ class BulkDiscount < ApplicationRecord
   has_many :transactions, through: :invoices
   has_many :customers, through: :invoices
 
-  validates_presence_of :percentage_discount, :quantity_threshold
+  validates :percentage_discount, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :quantity_threshold, presence: true, numericality: { greater_than_or_equal_to: 0 }
 end

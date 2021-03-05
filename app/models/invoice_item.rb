@@ -4,6 +4,7 @@ class InvoiceItem < ApplicationRecord
   has_many :transactions, through: :invoice
   has_one :merchant, through: :item
   has_one :customer, through: :invoice
+  has_many :bulk_discounts, through: :merchant
 
   validates_presence_of :unit_price, :quantity
   validates :unit_price, :quantity, numericality: { greater_than_or_equal_to: 0 }

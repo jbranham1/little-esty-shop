@@ -11,7 +11,9 @@ class InvoiceItem < ApplicationRecord
   enum status: [:pending, :packaged, :shipped]
 
   def revenue
-    unit_price * quantity
+    revenue = unit_price * quantity
+    discount = BulkDiscount.bulk_discount_by_item(item_id)
+    revenue.to_f - (revenue.to_f * discount)
   end
 
   def self.top_sales_date

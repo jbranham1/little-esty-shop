@@ -17,7 +17,7 @@ class BulkDiscountsController < ApplicationController
       redirect_to merchant_bulk_discounts_path(@merchant)
     else
       flash[:errors] = "Bulk Discount not created: #{@discount.errors.full_messages.to_sentence}."
-      render :new
+      redirect_to new_merchant_bulk_discount_path(@merchant)
     end
   end
 
@@ -32,7 +32,7 @@ class BulkDiscountsController < ApplicationController
       render :show
     else
       flash[:errors] = "Bulk Discount not updated: #{@discount.errors.full_messages.to_sentence}."
-      render :edit
+      redirect_to edit_merchant_bulk_discount_path(@merchant, @discount)
     end
   end
 

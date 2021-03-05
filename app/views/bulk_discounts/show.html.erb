@@ -7,3 +7,5 @@
 <h1 class="alert alert-info"><center>Bulk Discount ID: <%= @discount.id %></center> </h1>
 <p>Percentage Discount: <%= @discount.percentage_discount %></p>
 <p>Quantity Threshold: <%= @discount.quantity_threshold %></p>
+
+<%= link_to 'Edit Bulk Discount', edit_merchant_bulk_discount_path(@merchant, @discount), style: "color:white"%>

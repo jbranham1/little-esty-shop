@@ -12,8 +12,12 @@ class InvoiceItem < ApplicationRecord
 
   def revenue
     revenue = unit_price * quantity
-    discount = BulkDiscount.bulk_discount_by_item(item_id)
-    revenue.to_f - (revenue.to_f * discount)
+    discount = BulkDiscount.bulk_discount_by_item(:item_id)
+    if discount.nil?
+      revenue
+    else
+      revenue - (revenue * discount)
+    end
   end
 
   def self.top_sales_date

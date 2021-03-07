@@ -9,14 +9,4 @@ class BulkDiscount < ApplicationRecord
   validates :percentage_discount, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :quantity_threshold, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
-  def self.bulk_discount_by_item(item_id)
-    joins(:invoice_items)
-    .select('bulk_discounts.*')
-    .group('invoice_items.item_id', :quantity_threshold, :percentage_discount, :id)
-    .where('invoice_items.item_id': item_id)
-    .having('bulk_discounts.quantity_threshold <= count(item_id)')
-    .order('invoice_items.item_id', quantity_threshold: :desc)
-    .pluck(:percentage_discount)
-    .first
-  end
 end

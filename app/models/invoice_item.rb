@@ -12,12 +12,22 @@ class InvoiceItem < ApplicationRecord
 
   def revenue
     revenue = unit_price * quantity
-    discount = BulkDiscount.bulk_discount_by_item(:item_id)
+    discount = InvoiceItem.bulk_discount_by_item(:item_id)
     if discount.nil?
       revenue
     else
       revenue - (revenue * discount)
     end
+  end
+
+  def self.bulk_discount_by_item(item_id)
+    joins(:bulk_discounts)
+    .select('bulk_discounts.*')
+    .where(item_id: item_id)
+    .where('quantity >= quantity_threshold')
+    .order(percentage_discount: :desc, quantity_threshold: :desc)
+    .pluck(:percentage_discount)
+    .first
   end
 
   def self.top_sales_date

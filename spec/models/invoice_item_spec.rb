@@ -42,16 +42,6 @@ RSpec.describe InvoiceItem, type: :model do
      expect(@invoice_item84.shipped?).to eq(true)
   end
 
-  describe 'instance methods' do
-    describe '#revenue' do
-      it "gets revenue of " do
-        invoice_item = create(:invoice_item, unit_price: 2.5, quantity: 3, id: 1000)
-
-        expect(invoice_item.revenue).to eq(7.5)
-      end
-    end
-  end
-
   describe 'class methods' do
     describe '::top_sales_date' do
       it "returns the date with most sales based on total_revenue" do
@@ -59,8 +49,31 @@ RSpec.describe InvoiceItem, type: :model do
         expect(InvoiceItem.top_sales_date).to eq(@invoice.created_at)
       end
     end
+  end
 
-    describe '::bulk_discount_by_item(item_id)' do
+  describe 'instance methods' do
+    describe '#revenue' do
+      describe "gets revenue of invoice item" do
+        it "when there is no bulk discount" do
+          BulkDiscount.destroy_all
+          invoice_item = create(:invoice_item, unit_price: 2.5, quantity: 3, id: 1000)
+
+          expect(invoice_item.revenue).to eq(7.5)
+        end
+        it "when there is a bulk discount" do
+          merchant = create(:merchant)
+          item1 = create(:item, merchant_id: merchant.id)
+          invoice = create(:invoice)
+
+          invoice_item1 = create(:invoice_item, invoice_id: invoice.id, item_id: item1.id, quantity: 10, unit_price: 2.5)
+          bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:10)
+
+          expect(invoice_item1.revenue).to eq(20)
+        end
+      end
+    end
+
+    describe '#bulk_discount' do
       describe "bulk discount for item based on item count" do
         describe "Merchant A has one Bulk Discount, Bulk Discount A is 20% off 10 items," do
           describe "Invoice A includes two of Merchant A’s items, Item A is ordered in a quantity of 5, Item B is ordered in a quantity of 5" do
@@ -69,14 +82,14 @@ RSpec.describe InvoiceItem, type: :model do
               item1 = create(:item, merchant_id: merchant.id)
               invoice = create(:invoice)
 
-              create(:invoice_item, invoice_id: invoice.id, item_id: item1.id, quantity: 5)
+              invoice_item1 = create(:invoice_item, invoice_id: invoice.id, item_id: item1.id, quantity: 5)
 
               item2 = create(:item, merchant_id: merchant.id)
-              create(:invoice_item, invoice_id: invoice.id, item_id: item2.id, quantity: 5)
+              invoice_item2 = create(:invoice_item, invoice_id: invoice.id, item_id: item2.id, quantity: 5)
 
               bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:10)
-              expect(InvoiceItem.bulk_discount_by_item(item1.id)).to eq(nil)
-              expect(InvoiceItem.bulk_discount_by_item(item2.id)).to eq(nil)
+              expect(invoice_item1.bulk_discount).to eq(nil)
+              expect(invoice_item2.bulk_discount).to eq(nil)
             end
           end
         end
@@ -87,13 +100,13 @@ RSpec.describe InvoiceItem, type: :model do
               item1 = create(:item, merchant_id: merchant.id)
               invoice = create(:invoice)
 
-              create(:invoice_item, invoice_id: invoice.id, item_id: item1.id, quantity: 10)
+              invoice_item1 = create(:invoice_item, invoice_id: invoice.id, item_id: item1.id, quantity: 10)
               item2 = create(:item, merchant_id: merchant.id)
 
-              create(:invoice_item, invoice_id: invoice.id, item_id: item2.id, quantity: 5)
+              invoice_item2 = create(:invoice_item, invoice_id: invoice.id, item_id: item2.id, quantity: 5)
               bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:10)
-              expect(InvoiceItem.bulk_discount_by_item(item1.id)).to eq(20)
-              expect(InvoiceItem.bulk_discount_by_item(item2.id)).to eq(nil)
+              expect(invoice_item1.bulk_discount).to eq(20)
+              expect(invoice_item2.bulk_discount).to eq(nil)
             end
           end
         end
@@ -104,16 +117,16 @@ RSpec.describe InvoiceItem, type: :model do
               item1 = create(:item, merchant_id: merchant.id)
               invoice = create(:invoice)
 
-              create(:invoice_item, invoice_id: invoice.id, item_id: item1.id ,quantity: 12)
+              invoice_item1 = create(:invoice_item, invoice_id: invoice.id, item_id: item1.id ,quantity: 12)
 
               item2 = create(:item, merchant_id: merchant.id)
 
-              create(:invoice_item, invoice_id: invoice.id, item_id: item2.id,quantity: 15)
+              invoice_item2 = create(:invoice_item, invoice_id: invoice.id, item_id: item2.id,quantity: 15)
 
               bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:10)
               bulk_discount2 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 30, quantity_threshold:15)
-              expect(InvoiceItem.bulk_discount_by_item(item1.id)).to eq(20)
-              expect(InvoiceItem.bulk_discount_by_item(item2.id)).to eq(30)
+              expect(invoice_item1.bulk_discount).to eq(20)
+              expect(invoice_item2.bulk_discount).to eq(30)
             end
           end
         end
@@ -124,15 +137,15 @@ RSpec.describe InvoiceItem, type: :model do
               item1 = create(:item, merchant_id: merchant.id)
               invoice = create(:invoice)
 
-              create(:invoice_item, invoice_id: invoice.id, item_id: item1.id, quantity: 12)
+              invoice_item1 = create(:invoice_item, invoice_id: invoice.id, item_id: item1.id, quantity: 12)
               item2 = create(:item, merchant_id: merchant.id)
 
-              create(:invoice_item, invoice_id: invoice.id, item_id: item2.id, quantity: 15)
+              invoice_item2 = create(:invoice_item, invoice_id: invoice.id, item_id: item2.id, quantity: 15)
 
               bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:10)
               bulk_discount2 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 15, quantity_threshold:15)
-              expect(InvoiceItem.bulk_discount_by_item(item1.id)).to eq(20)
-              expect(InvoiceItem.bulk_discount_by_item(item2.id)).to eq(20)
+              expect(invoice_item1.bulk_discount).to eq(20)
+              expect(invoice_item2.bulk_discount).to eq(20)
             end
           end
         end
@@ -145,18 +158,19 @@ RSpec.describe InvoiceItem, type: :model do
                 item1 = create(:item, merchant_id: merchant.id)
                 invoice = create(:invoice)
 
-                create(:invoice_item, invoice_id: invoice.id, item_id: item1.id, quantity: 12)
+                invoice_item1 = create(:invoice_item, invoice_id: invoice.id, item_id: item1.id, quantity: 12)
 
                 item2 = create(:item, merchant_id: merchant.id)
-                create(:invoice_item, invoice_id: invoice.id, item_id: item2.id, quantity: 15)
+                invoice_item2 = create(:invoice_item, invoice_id: invoice.id, item_id: item2.id, quantity: 15)
 
                 item3 = create(:item, merchant_id: merchant2.id)
-                create(:invoice_item, invoice_id: invoice.id, item_id: item3.id, quantity: 15)
+                invoice_item3 = create(:invoice_item, invoice_id: invoice.id, item_id: item3.id, quantity: 15)
 
                 bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:10)
                 bulk_discount2 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 15, quantity_threshold:30)
-                expect(InvoiceItem.bulk_discount_by_item(item1.id)).to eq(20)
-                expect(InvoiceItem.bulk_discount_by_item(item2.id)).to eq(20)
+                expect(invoice_item1.bulk_discount).to eq(20)
+                expect(invoice_item2.bulk_discount).to eq(20)
+                expect(invoice_item3.bulk_discount).to eq(nil)
               end
             end
           end

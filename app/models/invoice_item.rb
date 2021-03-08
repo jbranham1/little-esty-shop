@@ -11,21 +11,13 @@ class InvoiceItem < ApplicationRecord
   enum status: [:pending, :packaged, :shipped]
 
   def revenue
-    revenue = unit_price * quantity
-    discount = InvoiceItem.bulk_discount_by_item(:item_id)
-    if discount.nil?
-      revenue
-    else
-      revenue - (revenue * discount)
-    end
+    revenue = (unit_price * quantity).to_f
+    revenue - (revenue * (self.bulk_discount.to_f/100))
   end
 
-  def self.bulk_discount_by_item(item_id)
-    #item.bulk_dicounts.select
-    joins(:bulk_discounts)
-    .select('bulk_discounts.*')
-    .where(item_id: item_id)
-    .where('quantity >= quantity_threshold')
+  def bulk_discount
+    bulk_discounts
+    .where('? >= quantity_threshold', self.quantity)
     .order(percentage_discount: :desc, quantity_threshold: :desc)
     .pluck(:percentage_discount)
     .first

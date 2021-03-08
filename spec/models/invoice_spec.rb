@@ -37,6 +37,7 @@ RSpec.describe Invoice, type: :model do
   describe 'instance methods' do
     describe '#total_revenue' do
       it "gets sum of revenue for all invoice items on the invoice" do
+        BulkDiscount.destroy_all
         invoice17 = Invoice.find(17)
 
         expect(invoice17.total_revenue).to eq(0.2474251e7)

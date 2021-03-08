@@ -20,6 +20,7 @@
         <th class="white_glow">Quantity:</th>
         <th class="white_glow">Unit Price:</th>
         <th class="white_glow">Status:</th>
+        <th class="white_glow">Bulk Discount:</th>
       </tr>
     </thead>
 
@@ -35,6 +36,12 @@
             <%= f.hidden_field :merchant_id, value: @merchant.id %>
             <%= f.select(:status, ["pending", "packaged", "shipped"], value: :status) %>
             <%= f.submit "Update Item Status" %>
+          <% end %>
+
+        </td>
+        <td>
+          <% if !invoice_item.bulk_discount.nil?  %>
+          <%= link_to "#{invoice_item.bulk_discount.first}%",merchant_bulk_discount_path(@merchant.id, invoice_item.bulk_discount[1]), style: "color:white" %>
           <% end %>
         </td>
       </tr>

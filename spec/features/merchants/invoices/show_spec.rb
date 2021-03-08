@@ -38,6 +38,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
           expect(page).to have_content("#{@customer.city}, #{@customer.state} #{@customer.zipcode}")
         end
       end
+
       describe "Then I see all of my items on the invoice including:" do
         it "Item name, The quantity of the item ordered, The price the Item sold for,The Invoice Item status" do
 
@@ -70,6 +71,19 @@ RSpec.describe 'Merchant Invoices Show Page' do
                 end
               end
             end
+          end
+        end
+        it "Next to each invoice item I see a link to the show page for the bulk discount that was applied (if any)" do
+          bulk_discount1 = create(:bulk_discount, merchant_id: @merchant.id, percentage_discount: 20, quantity_threshold:10)
+          visit merchant_invoice_path(@merchant.id, @invoice.id)
+
+          within ".invoice-items" do
+            within ".invoice-item-#{@invoice_item.id}" do
+              expect(page).to have_link("20%")
+
+              click_link("20%")
+            end
+            expect(current_path).to eq(visit merchant_bulk_discount_path(@merchant, bulk_discount1))
           end
         end
       end

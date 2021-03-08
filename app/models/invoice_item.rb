@@ -21,6 +21,7 @@ class InvoiceItem < ApplicationRecord
   end
 
   def self.bulk_discount_by_item(item_id)
+    #item.bulk_dicounts.select
     joins(:bulk_discounts)
     .select('bulk_discounts.*')
     .where(item_id: item_id)

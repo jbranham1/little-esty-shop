@@ -8,11 +8,11 @@ class BulkDiscountIndexFacade
   end
 
   def get_holidays
-    # nager_service = NagerService.new
-    # nager_service.get_upcoming_holidays.map do |data|
-    #   Holiday.new(data)
-    # end
-    data= {localName: 'name', date: ''}
-    [Holiday.new(data)]
+    nager_service = NagerService.new
+    nager_service.get_upcoming_holidays.map do |data|
+      Holiday.new(data)
+    end
+    # data= {localName: 'name', date: ''}
+    # [Holiday.new(data)]
   end
 end

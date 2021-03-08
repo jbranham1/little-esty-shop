@@ -11,18 +11,20 @@ RSpec.describe 'Merchant Bulk Discounts New Page' do
       describe " I see a form to add a new bulk discount" do
         describe "When I fill in the form with valid data" do
           it "Then I am redirected back to the bulk discount index and I see my new bulk discount listed" do
-            visit new_merchant_bulk_discount_path(@merchant)
-            expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/new")
+            VCR.use_cassette('nager-date-next-public-holidays') do
+              visit new_merchant_bulk_discount_path(@merchant)
+              expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/new")
 
-            expect(page).to have_content("Create a New Bulk Discount")
-            fill_in 'bulk_discount[percentage_discount]', with: 25
-            fill_in 'bulk_discount[quantity_threshold]', with: 5
-            click_button 'Create Bulk discount'
+              expect(page).to have_content("Create a New Bulk Discount")
+              fill_in 'bulk_discount[percentage_discount]', with: 25
+              fill_in 'bulk_discount[quantity_threshold]', with: 5
+              click_button 'Create Bulk discount'
 
-            expect(current_path).to eq(merchant_bulk_discounts_path(@merchant))
-            within ".merchant-discounts" do
-              expect(page).to have_content("Percentage Discount: 25")
-              expect(page).to have_content("Quantity Threshold: 5")
+              expect(current_path).to eq(merchant_bulk_discounts_path(@merchant))
+              within ".merchant-discounts" do
+                expect(page).to have_content("Percentage Discount: 25")
+                expect(page).to have_content("Quantity Threshold: 5")
+              end
             end
           end
           describe "When I fill in the form without percentage discount" do

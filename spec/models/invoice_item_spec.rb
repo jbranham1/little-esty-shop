@@ -105,7 +105,7 @@ RSpec.describe InvoiceItem, type: :model do
 
               invoice_item2 = create(:invoice_item, invoice_id: invoice.id, item_id: item2.id, quantity: 5)
               bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:10)
-              expect(invoice_item1.bulk_discount).to eq(20)
+              expect(invoice_item1.bulk_discount.first).to eq(20)
               expect(invoice_item2.bulk_discount).to eq(nil)
             end
           end
@@ -125,8 +125,8 @@ RSpec.describe InvoiceItem, type: :model do
 
               bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:10)
               bulk_discount2 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 30, quantity_threshold:15)
-              expect(invoice_item1.bulk_discount).to eq(20)
-              expect(invoice_item2.bulk_discount).to eq(30)
+              expect(invoice_item1.bulk_discount.first).to eq(20)
+              expect(invoice_item2.bulk_discount.first).to eq(30)
             end
           end
         end
@@ -144,8 +144,8 @@ RSpec.describe InvoiceItem, type: :model do
 
               bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:10)
               bulk_discount2 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 15, quantity_threshold:15)
-              expect(invoice_item1.bulk_discount).to eq(20)
-              expect(invoice_item2.bulk_discount).to eq(20)
+              expect(invoice_item1.bulk_discount.first).to eq(20)
+              expect(invoice_item2.bulk_discount.first).to eq(20)
             end
           end
         end
@@ -168,8 +168,8 @@ RSpec.describe InvoiceItem, type: :model do
 
                 bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:10)
                 bulk_discount2 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 15, quantity_threshold:30)
-                expect(invoice_item1.bulk_discount).to eq(20)
-                expect(invoice_item2.bulk_discount).to eq(20)
+                expect(invoice_item1.bulk_discount.first).to eq(20)
+                expect(invoice_item2.bulk_discount.first).to eq(20)
                 expect(invoice_item3.bulk_discount).to eq(nil)
               end
             end

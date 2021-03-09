@@ -12,7 +12,9 @@
     <div class="discount-<%= discount.id %>">
       <h3>Bulk Discount ID:
         <%= link_to discount.id, merchant_bulk_discount_path(@facade.merchant, discount), style: "color:white"%></h3>
-        <%= button_to 'Delete', merchant_bulk_discount_path(@facade.merchant, discount), method: :delete%>
+        <% if discount.pending_invoice_items_count == 0%>
+          <%= button_to 'Delete', merchant_bulk_discount_path(@facade.merchant, discount), method: :delete%>
+        <% end %>
       <p>Percentage Discount: <%= discount.percentage_discount %></p>
       <p>Quantity Threshold: <%= discount.quantity_threshold %></p>
       </div>

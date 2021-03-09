@@ -27,12 +27,17 @@ class BulkDiscountsController < ApplicationController
 
   def update
     @discount = BulkDiscount.find(params[:id])
-    if @discount.update(discount_params)
-      flash[:notice] = "Bulk Discount #{@discount.id} successfully updated"
-      render :show
-    else
-      flash[:errors] = "Bulk Discount not updated: #{@discount.errors.full_messages.to_sentence}."
+    if @discount.pending_invoice_items_count >0
+      flash[:errors] = "Bulk Discount not updated: Can't update when there are pending invoices."
       redirect_to edit_merchant_bulk_discount_path(@merchant, @discount)
+    else
+      if @discount.update(discount_params)
+        flash[:notice] = "Bulk Discount #{@discount.id} successfully updated"
+        render :show
+      else
+        flash[:errors] = "Bulk Discount not updated: #{@discount.errors.full_messages.to_sentence}."
+        redirect_to edit_merchant_bulk_discount_path(@merchant, @discount)
+      end
     end
   end
 

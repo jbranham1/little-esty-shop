@@ -9,4 +9,6 @@ class BulkDiscount < ApplicationRecord
   validates :percentage_discount, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :quantity_threshold, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
+  def pending_invoices
+  end
 end

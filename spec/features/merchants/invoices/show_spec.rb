@@ -84,7 +84,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
               click_link("20%")
             end
           end
-          expect(current_path).to eq(merchant_bulk_discount_path(@merchant, @invoice_item.bulk_discount[1]))
+          expect(current_path).to eq(merchant_bulk_discount_path(@merchant, @invoice_item.bulk_discount))
         end
         it "Next to each invoice item I see no link for the bulk discount because none applied" do
           bulk_discount1 = create(:bulk_discount, merchant_id: @merchant.id, percentage_discount: 20, quantity_threshold:15)

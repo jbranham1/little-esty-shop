@@ -37,10 +37,23 @@ RSpec.describe Invoice, type: :model do
   describe 'instance methods' do
     describe '#total_revenue' do
       it "gets sum of revenue for all invoice items on the invoice" do
-        BulkDiscount.destroy_all
-        invoice17 = Invoice.find(17)
+        merchant = create(:merchant)
+        item1 = create(:item, merchant_id: merchant.id)
+        invoice = create(:invoice)
+        invoice_item1 = create(:invoice_item, invoice_id: invoice.id, item_id: item1.id, quantity: 12, unit_price: 2)
 
-        expect(invoice17.total_revenue).to eq(0.2474251e7)
+        expect(invoice.total_revenue).to eq(24)
+      end
+      it "gets sum of revenue for all invoice items on the invoice with discounts" do
+        merchant = create(:merchant)
+        item1 = create(:item, merchant_id: merchant.id)
+        invoice = create(:invoice)
+        invoice_item1 = create(:invoice_item, invoice_id: invoice.id, item_id: item1.id ,quantity: 12, unit_price: 2)
+        item2 = create(:item, merchant_id: merchant.id)
+        invoice_item2 = create(:invoice_item, invoice_id: invoice.id, item_id: item2.id,quantity: 15, unit_price: 2)
+        bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:13)
+
+        expect(invoice.total_revenue).to eq(48)
       end
     end
   end

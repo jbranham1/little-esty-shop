@@ -4,6 +4,7 @@ RSpec.describe 'Admin Invoices Show Page' do
   before :each do
     @invoice = Invoice.all.first
     @invoice_item = @invoice.invoice_items.first
+    @merchant = @invoice_item.merchant
     @customer = @invoice.customer
     @customer.update(address: '123 Main St', city: 'Denver', state: 'CO', zipcode: '80202')
     @customer.save
@@ -56,12 +57,42 @@ RSpec.describe 'Admin Invoices Show Page' do
         describe "I see the invoice status is a select field with the current invoice status" do
           describe "When I click this field I can select a new status and click 'Update Invoice Status'" do
             it "When I click this button, I am taken back to the same page and see the Invoice status updated" do
-              visit admin_invoice_path(@invoice)
-              @invoice.update(status: :in_progress)
-              page.find(:xpath, "//*[@id='invoice_status']/option[2]").click
+              merchant = create(:merchant)
+              item1 = create(:item, merchant_id: merchant.id)
+              invoice = create(:invoice)
+
+              invoice_item1 = create(:invoice_item, invoice_id: invoice.id, item_id: item1.id, quantity: 10, unit_price: 2.5)
+              bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:5)
+
+              visit admin_invoice_path(invoice)
+              invoice.update(status: :in_progress)
+              expect(page.has_select?('invoice[status]', selected: :in_progress))
+              select :cancelled, from: 'invoice[status]'
               click_button("Update Invoice")
 
-              expect(current_path).to eq(admin_invoice_path(@invoice))
+              expect(current_path).to eq(admin_invoice_path(invoice))
+              expect(invoice.invoice_items.first.discount_percentage).to eq(nil)
+            end
+            describe "When an Admin marks an invoice as “completed”," do
+              it "then the discount percentage should be stored on the invoice item record so that it can be referenced later" do
+                merchant = create(:merchant)
+                item1 = create(:item, merchant_id: merchant.id)
+                item2 = create(:item, merchant_id: merchant.id)
+                invoice = create(:invoice)
+
+                invoice_item1 = create(:invoice_item, invoice_id: invoice.id, item_id: item1.id, quantity: 10, unit_price: 2.5)
+                invoice_item2 = create(:invoice_item, invoice_id: invoice.id, item_id: item2.id, quantity: 5, unit_price: 2.5)
+                bulk_discount1 = create(:bulk_discount, merchant_id: merchant.id, percentage_discount: 20, quantity_threshold:10)
+                visit admin_invoice_path(invoice)
+
+                expect(page.has_select?('invoice[status]', selected: :in_progress))
+                select :completed, from: 'invoice[status]'
+                click_button("Update Invoice")
+
+                expect(current_path).to eq(admin_invoice_path(invoice))
+                expect(invoice.invoice_items.first.discount_percentage).to eq(20)
+                expect(invoice.invoice_items.second.discount_percentage).to eq(nil)
+              end
             end
           end
         end

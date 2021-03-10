@@ -11,7 +11,20 @@ class Admin::InvoicesController < ApplicationController
   def update
     @invoice.update(invoice_params)
     flash[:success] = "Invoice successfully updated"
+    if @invoice.status == "completed"
+      update_invoice_items_percentage
+    end
     redirect_to "/admin/invoices/#{params[:id]}"
+  end
+
+  def update_invoice_items_percentage
+    @invoice.invoice_items.each do |invoice_item|
+      if !invoice_item.bulk_discount.nil?
+        bulk_discount = invoice_item.bulk_discount.percentage_discount
+        invoice_item.update(discount_percentage: bulk_discount)
+        invoice_item.save
+      end
+    end
   end
 
   private

@@ -39,25 +39,6 @@ RSpec.describe 'Merchant Bulk Discounts Edit Page' do
               expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant, @discount1))
             end
           end
-          describe "When I fill in the form with valid data" do
-            describe "But there are pending invoices for the bulk disocunt" do
-              it "Then I am redirected back to the bulk discount edit page and see an error message" do
-                item2 = create(:item, merchant_id: @merchant.id)
-                invoice2 = create(:invoice)
-
-                invoice_item2 = create(:invoice_item, invoice_id: invoice2.id, item_id: item2.id, quantity: 10, unit_price: 2.5, status: :pending)
-                visit edit_merchant_bulk_discount_path(@merchant, @discount1)
-                expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/#{@discount1.id}/edit")
-
-                expect(page).to have_content("Edit Bulk Discount")
-                fill_in 'bulk_discount[percentage_discount]', with: 30
-                fill_in 'bulk_discount[quantity_threshold]', with: 10
-                click_button 'Update Bulk discount'
-                expect(page).to have_content("Bulk Discount not updated: Can't update when there are pending invoices.")
-                expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant, @discount1))
-              end
-            end
-          end
         end
       end
     end

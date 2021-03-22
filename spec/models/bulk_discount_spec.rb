@@ -17,7 +17,7 @@ RSpec.describe BulkDiscount, type: :model do
   end
 
   describe 'instance methods' do
-    describe '#pendinpending_invoice_itemsg_invoices' do
+    describe '#pending_invoices' do
       describe "gets all pending invoice items for the bulk discount" do
         it "when there are pending invoices" do
           merchant = create(:merchant)
